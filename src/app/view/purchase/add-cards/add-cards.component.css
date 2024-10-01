@@ -1,0 +1,23 @@
+/* Stripe card element styling */
+#card-element {
+    border: 1px solid #ced4da;
+    padding: 10px;
+    border-radius: 0.25rem;
+  }
+  
+  #card-errors {
+    color: red;
+    margin-top: 10px;
+  }
+  
+  /* Add some padding to the container */
+  .container {
+    max-width: 600px;
+  }
+  
+  /* Optional: Style the card element placeholder */
+  input,
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  

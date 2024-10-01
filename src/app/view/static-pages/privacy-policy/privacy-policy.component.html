@@ -1,0 +1,11 @@
+<div class="container mb-3">
+    <h2>PRIVACY POLICY</h2>
+    <p><strong>MENA Auctions</strong> (the “Company”) is committed to protecting the privacy of its users. This Privacy Policy (“Privacy Policy”) is designed to help you understand what information we gather, how we use it, what we do to protect it, and to assist you in making informed decisions when using our website. Unless otherwise indicated below, this Privacy Policy applies to any website that references this Privacy Policy, any Company website, as well as any data the Company may collect across partnered and unaffiliated sites.</p>
+    <p>For purposes of this Agreement, the terms “we,” “us,” and “our” refer to the Company. “You” refers to you, as a user of the website.</p>
+
+    <div *ngFor="let response of privacyContents; let i = index">
+        <h3 class="section-title">{{i + 1}}. {{response.title}}</h3>
+        <p>{{response.content}}</p>
+      </div>
+      
+</div>

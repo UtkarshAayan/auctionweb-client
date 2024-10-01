@@ -1,0 +1,174 @@
+
+<div *ngIf="isLoading">
+    <app-loader></app-loader>  <!-- Loader shown when isLoading is true -->
+  </div>
+
+<div class="page-content container" *ngIf="!isLoading">
+  <div *ngIf="dataArray" class="page-header text-blue-d2">
+      <h1 class="page-title text-secondary-d1">
+          Order Id
+          <small class="page-info">
+              <i class="fa fa-angle-double-right text-80"></i>
+              {{ dataArray._id }}
+          </small>
+      </h1>
+  </div>
+
+  <div class="container px-0">
+      <div class="row mb-3">
+          <div *ngIf="dataArray" class="col-12 col-lg-12">
+       
+              <!-- .row -->
+
+              <hr class="row brc-default-l1 mx-n1 mb-4" />
+
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div>
+                          <span class="text-sm text-grey-m2 align-middle">To:</span>
+                          <span class="text-600 text-110 text-blue align-middle"> {{ dataArray.buyer.name }}</span>
+                          
+                      </div>
+                      <div>
+                        <span class="text-sm text-grey-m2 align-middle">Email:</span>
+                        <span class="text-600 text-110 text-blue align-middle"> {{ dataArray.buyer.email }}</span>
+                        
+                    </div>
+                      <div class="text-grey-m2">
+                        <div class="my-1">
+                            {{ dataArray.product.shipping ? 'Shipping Address' : 'Collection Address' }}: 
+                            {{ dataArray.address }}
+                          </div>
+                          
+                          <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600"> {{ dataArray.buyer.contactNumber }}</b></div>
+                      </div>
+                  </div>
+                  <!-- /.col -->
+
+                  <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
+                      <hr class="d-sm-none" />
+                      <div class="text-grey-m2">
+                          <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
+                              Order
+                          </div>
+
+                          <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90"> ID:</span>  {{ dataArray._id }}</div>
+
+                          <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90"> Order Date:</span> {{ dataArray.orderDate | date:'medium' }}</div>
+
+                          <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90"> Status:</span> {{ dataArray.status}}</div>
+                      </div>
+                  </div>
+                  <!-- /.col -->
+              </div>
+
+              <div class="mt-4">
+                  <div class="row text-600 text-white bgc-default-tp1 py-25">
+                   
+                      <div class="col-9 col-sm-5">Product Name</div>
+                      <div class="d-none d-sm-block col-4 col-sm-2">Product Image</div>
+
+                      <div class="col-2">Amount</div>
+                  </div>
+
+                  <div class="text-95 text-secondary-d3">
+                      <div class="row mb-2 mb-sm-0 py-25">
+                         
+                          <div class="col-9 col-sm-5">{{dataArray.product.productName}}</div>
+                          <div class="d-none d-sm-block col-2"> <img [src]="dataArray.product.uploadDocuments[0].url" alt="Product Image" class="img-fluid rounded border" style="max-width: 100px;"></div>
+                        
+                          <div class="col-2 text-secondary-d2">
+                            {{ (buyNowPrice == 'true') ? (dataArray.product.buyNowPrice | currency) : (dataArray.currentBid | currency) }}
+                          </div>
+                          
+                      </div>
+
+                  </div>
+
+                  <div  *ngIf="adminArray" class="row mt-3">
+                      <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0">
+                         
+                      </div>
+
+                      <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
+                          <div class="row my-2">
+                              <div class="col-7 text-right">
+                                  SubTotal
+                              </div>
+                              <div class="col-5">
+                                  <span class="text-120 text-secondary-d1">{{ (buyNowPrice == 'true') ? (dataArray.product.buyNowPrice | currency) : (dataArray.currentBid | currency) }}</span>
+                              </div>
+                          </div>
+                          <div class="row my-2">
+                            <div class="col-7 text-right">
+                                Shipping Price
+                            </div>
+                            <div class="col-5">
+                                 <span class="text-120 text-secondary-d1" *ngIf="dataArray.product.shipping">
+                                    {{dataArray.shippingPrice
+                                        | currency}}
+                                </span>
+                                <span class="text-120 text-secondary-d1" *ngIf="!dataArray.product.shipping">
+                                    N/A
+                                </span>
+                            </div>
+                        </div>
+                        
+                          <div class="row my-2">
+                              <div class="col-7 text-right">
+                                  Sales Tax ({{adminArray.saleTax
+                                  }}%)
+                              </div>
+                              <div class="col-5">
+                                  <span class="text-120 text-secondary-d1" *ngIf="dataArray.product.
+                                  saleTax
+                                  ">
+                                    {{ dataArray.
+                                        saleTaxPrice
+                                         | currency }}
+                                </span>
+                                <span class="text-120 text-secondary-d1" *ngIf="!dataArray.product.saleTax">
+                                    N/A
+                                </span>
+
+                              </div>
+                          </div>
+                          <div class="row my-2">
+                            <div class="col-7 text-right">
+                                Buyers Premium
+                                ({{adminArray.buyerPremium
+                                }}%)
+                            </div>
+                            <div class="col-5">
+                                <span class="text-120 text-secondary-d1" *ngIf="dataArray.product.buyerPremium
+                                ">
+                                    {{ dataArray.buyerPremiumPrice | currency }}
+                                </span>
+                                <span class="text-120 text-secondary-d1" *ngIf="!dataArray.product.buyerPremium">
+                                    N/A
+                                </span>
+                            </div>
+                        </div>
+
+                          <div class="row my-2 align-items-center bgc-primary-l3 p-2">
+                              <div class="col-7 text-right">
+                                  Total Amount
+                              </div>
+                              <div class="col-5">
+                                  <span class="text-150 text-success-d3 opacity-2">{{ dataArray.finalPrice | currency }}</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <hr />
+
+                  <div class="d-flex justify-content-around">
+                      <span class="text-secondary-d1 text-105">Thank you for your business</span>
+                      <a routerLink="/add-cards" class="btn btn-info btn-bold px-4 btn mt-3 mt-lg-0">Pay Now</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

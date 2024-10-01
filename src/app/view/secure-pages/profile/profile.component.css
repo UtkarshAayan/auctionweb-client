@@ -1,0 +1,39 @@
+.container{
+    margin: 0px;
+    padding: 30px;
+    border: 0px;
+    margin: 0px auto;
+    max-width: 85%;
+    width: 100%;
+    background: #f8f9fa;
+}
+
+
+/* Style for nav tabs */
+.nav-tabs {
+  border-bottom: 2px solid #007bff; /* Add a bottom border to the tabs */
+  margin-bottom: 1rem; /* Space below the tabs */
+}
+
+.nav-tabs .nav-item .nav-link {
+  border: none; /* Remove default border */
+  border-radius: 0.25rem; /* Slightly rounded corners */
+  font-weight: 600; /* Make the text bolder */
+  padding: 0.75rem 1.5rem; /* Add padding for a better look */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transitions for hover effects */
+}
+
+/* Style for active tab */
+.nav-tabs .nav-item .nav-link.active {
+  color: #ffffff; /* White text color for the active tab */
+  background-color: #007bff; /* Blue background color for the active tab */
+  border-radius: 0.25rem; /* Rounded corners for the active tab */
+}
+
+/* Hover effect for tabs */
+.nav-tabs .nav-item .nav-link:hover {
+  background-color: #e9ecef; /* Light grey background on hover */
+  color: #007bff; /* Blue text color on hover */
+  border-radius: 0.25rem; /* Rounded corners on hover */
+  cursor: pointer; /* Pointer cursor on hover */
+}

@@ -1,0 +1,86 @@
+
+<nav class="navbar navbar-expand-lg navbar-light top-nav" style="background-color: #1B3C73;">
+  <div class="container-fluid">
+ >
+  </div>
+  
+</nav>
+
+<!-- Middle Layer: Brand, Search, Wishlist, Profile, Sign In, Register -->
+<nav class="navbar navbar-expand-lg navbar-light middle-nav" style="background-color: #1B3C73;">
+  <div class="container-fluid">
+    <a 
+    [routerLink]="isSeller ? 'auction' : 'home'" 
+    class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none me-2">
+    <img src="../../../assets/logo3.jpg" alt="twbs" width="200" height="65" style="border-radius: 30px;">
+  </a>
+  
+    <!-- Desktop view -->
+    <div class="d-none d-lg-flex align-items-center ms-auto">
+      <a class="btn btn-outline-warning me-2 btn-sm text-light" *ngIf="isSeller" routerLink="/seller-dashboard"><i class="bi bi-briefcase"></i></a>
+      <a class="btn btn-outline-primary me-2 btn-sm text-light" *ngIf="!isSeller && isLoggedIn" routerLink="/wishlist"><i class="bi bi-heart"></i></a>
+      <a class="btn btn-outline-secondary me-2 btn-sm text-light"  *ngIf="!isSeller && isLoggedIn" routerLink="/profile"><i class="bi bi-person"></i></a>
+      <a class="btn btn-outline-success me-2 btn-sm text-light" routerLink="/login" *ngIf="!isLoggedIn"><i class="bi bi-box-arrow-in-right"></i> Sign In</a>
+      <a class="btn btn-outline-danger btn-sm me-2 text-light" routerLink="/signup" *ngIf="!isLoggedIn"><i class="bi bi-box-arrow-right"></i> Register</a>
+    
+      <a *ngIf="isLoggedIn" class="btn btn-outline-info btn-sm text-light position-relative" routerLink="/alerts">
+        <i class="bi bi-bell"></i>
+        <span *ngIf="unreadCount > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{ unreadCount }}
+          <span class="visually-hidden">unread notifications</span>
+        </span>
+      </a>
+      
+    
+    </div>
+
+    <!-- Mobile view -->
+    <div class="d-flex d-lg-none align-items-center ms-auto">
+      <a class="btn btn-outline-warning me-2 btn-sm text-light" *ngIf="isSeller" routerLink="/seller-dashboard"><i class="bi bi-briefcase"></i></a>
+      <a class="btn btn-outline-primary me-2 text-light"  *ngIf="!isSeller && isLoggedIn" routerLink="/wishlist"><i class="bi bi-heart"></i></a>
+      <a class="btn btn-outline-secondary me-2 text-light"   *ngIf="!isSeller && isLoggedIn" routerLink="/profile"><i class="bi bi-person"></i></a>
+      <a class="btn btn-outline-success me-2 text-light" *ngIf="!isLoggedIn" routerLink="/login"><i class="bi bi-box-arrow-in-right"></i></a>
+      <a class="btn btn-outline-danger me-2 text-light" *ngIf="!isLoggedIn" routerLink="/signup"><i class="bi bi-box-arrow-right"></i></a>
+      <a *ngIf="isLoggedIn" class="btn btn-outline-info btn-sm text-light position-relative" routerLink="/alerts">
+        <i class="bi bi-bell"></i>
+        <span *ngIf="unreadCount > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{ unreadCount }}
+          <span class="visually-hidden">unread notifications</span>
+        </span>
+      </a>
+      
+    </div>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCategories" aria-controls="navbarCategories" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Bottom Layer: Categories -->
+<nav class="navbar navbar-expand-lg navbar-light bottom-nav mb-4" style="background-color: #1B3C73;">
+  <div  *ngIf="!hideCategory && !isSeller" class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarCategories" >
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown" *ngFor="let category of categories">
+          <button type="button" class="btn btn-success m-2 btn-sm" id="navbarDropdown" data-bs-toggle="dropdown" [routerLink]="['/particular-auction', category.name]" aria-expanded="false">
+            {{ category.name }}<span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu category-menu" aria-labelledby="navbarDropdown">
+            <li *ngFor="let subcategory of category.subcategories">
+              <a class="dropdown-item" [routerLink]="['/subcategory', category.name, 'subcategory', subcategory.name]">{{ subcategory.name }}</a>
+            </li>
+          </ul>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+

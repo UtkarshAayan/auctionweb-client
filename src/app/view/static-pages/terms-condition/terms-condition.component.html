@@ -1,0 +1,10 @@
+<section class="terms-section">
+    <div class="container">
+        <h2>Terms and Conditions</h2>
+
+        <div *ngFor="let response of termsContents; let i = index">
+            <h3 class="section-title">{{i + 1}}. {{response.title}}</h3>
+            <p>{{response.content}}</p>
+          </div>
+    </div>
+</section>

@@ -1,0 +1,408 @@
+<div *ngIf="isLoading">
+    <app-loader></app-loader>  <!-- Loader shown when isLoading is true -->
+  </div>
+
+<div class="container my-3" style="background-color: #f8f9fa;" *ngIf="!isLoading">
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 justify-content-center py-3">
+
+            <form [formGroup]="productForm">
+                <h4 class="m-0 pb-5 text-center">Product Form</h4>
+                <h6 class="m-0 pb-4">Lot - XXYYYYY</h6>
+                <div class="form-group row pb-3">
+                    <label for="exampleInputName1" class="col-sm-3 col-form-label">Product Name<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <input formControlName="productName" type="text" class="form-control" id="exampleInputName1"
+                            aria-describedby="nameHelp" placeholder=" " required>
+                    </div>
+                </div>
+                <div class="form-group row pb-4">
+                    <label for="exampleInputitem1" class="col-sm-3 col-form-label">Category<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <select formControlName="category" class="form-select" (change)="onCategoryChange($event)"
+                            required>
+                            <option disabled selected>--select category--</option>
+                            <option *ngFor="let category of categories" [value]="category.name">{{category.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row pb-4">
+                    <label for="exampleInputitem1" class="col-sm-3 col-form-label">Subcategory<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <select formControlName="subcategory" class="form-select" required>
+                            <option disabled selected>--select subcategory--</option>
+                            <option *ngFor="let subcategory of subcategories" [value]="subcategory.name">
+                                {{subcategory.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row pb-4">
+                    <label for="exampleInputitem1" class="col-sm-3 col-form-label">Product Condition<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-3">
+                        <select formControlName="productCondition" class="form-select"
+                            aria-label="Default select example" required>
+                            <option disabled selected>--select condition--</option>
+                            <option *ngFor="let condition of dataCondition" [value]="condition">{{condition}}</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row pb-4">
+                    <label for="exampleInputcolor1" class="col-sm-3 col-form-label">Color<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <select formControlName="color" class="form-select" aria-label="Default select example">
+                            <option disabled selected>--select color--</option>
+                            <option *ngFor="let color of dataColor" [value]="color">{{color}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pb-4">
+                    <label for="exampleInputcondition1" class="col-sm-3 col-form-label">Product Description<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <textarea formControlName="productDescription" class="form-control" id="exampleInputcondition1"
+                            rows="3" placeholder="Write a detailed description of your item"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row py-3">
+                    <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Brand<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <input formControlName="brand" type="text" class="form-control" id="exampleInputmaterial1"
+                            aria-describedby="materialHelp" placeholder="  " required>
+                    </div>
+                </div>
+                <div class="form-group row pb-4">
+                    <label class="col-sm-3 col-form-label">Other</label>
+                    <div class="col-sm-9">
+                      <div formArrayName="dynamicFields">
+                        <div *ngFor="let field of dynamicFields.controls; let i = index" [formGroupName]="i" class="form-group row mb-3 align-items-center">
+                          <div class="col-sm-4">
+                            <label for="key-{{i}}" class="form-label">Name</label>
+                            <input formControlName="key" id="key-{{i}}" class="form-control" placeholder="Field Key">
+                          </div>
+              
+                          <div class="col-sm-4">
+                            <label for="value-{{i}}" class="form-label">Value</label>
+                            <input formControlName="value" id="value-{{i}}" class="form-control" placeholder="Field Value">
+                          </div>
+              
+                          <div class="col-sm-3 d-flex align-items-center" style="margin-top: 2rem;">
+                            <button type="button" (click)="removeDynamicField(i)" class="btn btn-danger btn-sm ms-2">
+                              <i class="bi bi-trash"></i> 
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+              
+                      <button type="button" (click)="addDynamicField()" class="btn btn-primary btn-sm mt-2">
+                        Add
+                      </button>
+                    </div>
+                  </div>
+              
+
+              
+                <!-- start price -->
+                <div class="form-group row py-3">
+                    <label for="exampleInputmaterial2" class="col-sm-3 col-form-label">Starting Price<span
+                            class="text-danger">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input min="1" formControlName="startingPrice" type="number" class="form-control"
+                                #startingPriceInput id="exampleInputmaterial2" aria-describedby="materialHelp"
+                                placeholder=" " required>
+
+                        </div>
+                    </div>
+                    <label for="exampleInputmaterial3" class="col-sm-3 col-form-label ps-4">Reserve Price<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input min="1" formControlName="reservePrice" type="number" class="form-control"
+                                #reservedPriceInput id="exampleInputmaterial3" aria-describedby="materialHelp"
+                                placeholder=" " required>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group row pb-4">
+                    <label for="exampleInputmaterial4" class="col-sm-3 col-form-label">Buy Now Price <span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input min="1" formControlName="buyNowPrice" type="number" class="form-control"
+                                #reservedPriceInput id="exampleInputmaterial4" aria-describedby="materialHelp"
+                                placeholder=" " required>
+                        </div>
+                    </div>
+                </div>
+                <!-- date -->
+                <div class="form-group row py-3">
+                    <label for="exampleInputStartTime" class="col-sm-2 col-form-label">Start Date<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input formControlName="startDate" type="date" class="form-control" #startTimeInput
+                                id="exampleInputStartTime" aria-describedby="startTimeHelp" placeholder=" " required>
+
+                        </div>
+                    </div>
+
+                    <label for="exampleInputStopTime" class="col-sm-2 col-form-label ps-4">End Date<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input formControlName="endDate" type="date" class="form-control" #stopTimeInput
+                                id="exampleInputStopTime" aria-describedby="stopTimeHelp" placeholder=" " required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- start & stop time -->
+                <div class="form-group row py-3">
+                    <label for="exampleInputStartTime" class="col-sm-2 col-form-label">Start Time<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input formControlName="startTime" type="time" class="form-control" #startTimeInput
+                                id="exampleInputStartTime" aria-describedby="startTimeHelp" placeholder=" " required>
+
+                        </div>
+                    </div>
+
+                    <label for="exampleInputStopTime" class="col-sm-2 col-form-label ps-4">Stop Time<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input formControlName="stopTime" type="time" class="form-control" #stopTimeInput
+                                id="exampleInputStopTime" aria-describedby="stopTimeHelp" placeholder=" " required>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- buyer premium -->
+                <div class="form-group row pb-4 align-items-center">
+                    <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Buyer's Premium<span
+                        class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <div class="form-check form-check-inline pe-5">
+                            <input formControlName="buyerPremium" value="true" class="form-check-input me-3"
+                                type="radio" name="buyerPremium" id="usedRadio">
+                            <label class="form-check-label" for="usedRadio">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input formControlName="buyerPremium" value="false" class="form-check-input me-3"
+                                type="radio" name="buyerPremium" id="newRadio">
+                            <label class="form-check-label" for="newRadio">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shopping -->
+                <div class="form-group row pb-4 align-items-center">
+                    <label for="shipping" class="col-sm-3 col-form-label">Shipping<span
+                        class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <div class="form-check form-check-inline pe-5">
+                            <input 
+                                formControlName="shipping" 
+                                value="true" 
+                                class="form-check-input me-3" 
+                                type="radio"
+                                id="shippingAvailable" 
+                                (change)="onShippingChange(true)">
+                            <label class="form-check-label" for="shippingAvailable">Available</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input 
+                                formControlName="shipping" 
+                                value="false" 
+                                class="form-check-input me-3" 
+                                type="radio"
+                                id="shippingNotAvailable" 
+                                (change)="onShippingChange(false)">
+                            <label class="form-check-label" for="shippingNotAvailable">Not Available</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div *ngIf="productForm.get('shipping')!.value === 'true'">
+                    <div formArrayName="shippingDetails">
+                        <div 
+                            *ngFor="let detail of shippingDetails.controls; let i = index" 
+                            [formGroupName]="i"
+                            class="row pb-3 mb-3 border rounded">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="country-{{i}}">Country</label>
+                                <select 
+                                    formControlName="country" 
+                                    class="form-select"
+                                    id="country-{{i}}">
+                                    <option value="" disabled>--select country--</option>
+                                    <option 
+                                        *ngFor="let country of countries" 
+                                        [value]="country.name"
+                                        [disabled]="isCountrySelected(country.name)">
+                                        {{country.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1 me-2">
+                                        <label class="form-label" for="shippingPrice-{{i}}">Shipping Price</label>
+                                        <input 
+                                            formControlName="shippingPrice" 
+                                            type="number" 
+                                            class="form-control" 
+                                            id="shippingPrice-{{i}}" />
+                                    </div>
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-danger btn-sm" style="margin-top: 2rem;"
+                                        (click)="removeShippingDetail(i)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button 
+                        type="button" 
+                        class="btn btn-primary mt-2 btn-sm" 
+                        (click)="addShippingDetail()">
+                        Add Country
+                    </button>
+                </div>
+                
+                
+                
+
+
+
+
+                <!-- collect -->
+                <div class="form-group row pb-4 align-items-center">
+                    <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Collect<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <div class="form-check form-check-inline pe-5">
+                            <input formControlName="collect" value="true" class="form-check-input me-3" type="radio"
+                                name="collect" id="usedRadio">
+                            <label class="form-check-label" for="usedRadio">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input formControlName="collect" value="false" class="form-check-input me-3" type="radio"
+                                name="collect" id="newRadio">
+                            <label class="form-check-label" for="newRadio">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row pb-4 align-items-center"> <label for="exampleInputmaterial1"
+                        class="col-sm-3 col-form-label">Sale Tax<span
+                        class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <div class="form-check form-check-inline pe-5">
+                            <input formControlName="saleTax" value="true" class="form-check-input me-3" type="radio"
+                                name="saleTax" id="usedRadio">
+                            <label class="form-check-label" for="usedRadio">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input formControlName="saleTax" value="false" class="form-check-input me-3" type="radio"
+                                name="saleTax" id="newRadio">
+                            <label class="form-check-label" for="newRadio">No</label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <h6 class="m-0 pb-4">Item Location<span style="color: red;">*</span></h6>
+                <div class="form-group row pb-4">
+                    <label for="exampleInputauctionname1" class="col-sm-3 col-form-label">Full Address<span
+                        class="text-danger">*</span></label>
+                    <div class="col-sm-9 position-relative">
+                        <input formControlName="address" type="text" class="form-control" id="exampleInputauctionname1"
+                            aria-describedby="auctionnameHelp" placeholder="  ">
+                        <span class="tooltip-text">Please Write Complete Address</span>
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group row pb-4">
+                    <label for="exampleInputauctionname1" class="col-sm-3 col-form-label">Town<span
+                        class="text-danger">*</span></label>
+                    <div class="col-sm-3">
+                        <input formControlName="town" type="text" class="form-control" id="exampleInputauctionname1"
+                            aria-describedby="auctionnameHelp" placeholder="  ">
+                    </div>
+                    <label for="exampleInputauctionname1" class="col-sm-3 col-form-label ps-5">Country<span
+                        class="text-danger">*</span></label>
+                    <div class="col-sm-3">
+                        <input formControlName="country" type="text" class="form-control" id="exampleInputauctionname1"
+                            aria-describedby="auctionnameHelp" placeholder="  ">
+                    </div>
+                </div>
+
+                <!-- Auction Form -->
+
+                <div class="form-group row pb-4">
+                    <label for="exampleInputauctiontype1" class="col-sm-3 col-form-label">Upload Images<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <input (change)="onFileChanged($event)" multiple type="file" class="form-control"
+                            id="exampleInputauctiontype1" placeholder="  ">
+                        <small id="emailHelp" class="form-text text-muted">Upload Img/Doc <span style="color: red;">Max
+                                Size 2MB </span> </small>
+                    </div>
+                </div>
+                <div class="form-group row pb-4">
+                    <label for="exampleInputauctiontype2" class="col-sm-3 col-form-label">Upload Essential
+                        Documents<span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <input (change)="onDocsChanged($event)" multiple type="file" class="form-control"
+                            id="exampleInputauctiontype2" placeholder="  ">
+                        <small id="emailHelp3" class="form-text text-muted">Upload Img/Doc <span style="color: red;">Max
+                                Size 2MB </span> </small>
+                    </div>
+                </div>
+
+                <div class="form-group row pb-4">
+                    <label for="exampleInputauctionname111" class="col-sm-3 col-form-label">Add Comment</label>
+                    <div class="col-sm-9 position-relative">
+                        <input formControlName="comment" type="text" class="form-control" id="exampleInputauctionname111"
+                            aria-describedby="auctionnameHelp" placeholder="  ">
+                        <span class="tooltip-text">Add Comment</span>
+                    </div>
+                </div>
+
+                <div class="form-group row text-center">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <button (click)="submit()" type="submit" [disabled]="isLoading" class="btn btn-secondary px-4">Save Details</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+
+
+</div>

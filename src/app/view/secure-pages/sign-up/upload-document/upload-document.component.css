@@ -1,0 +1,15 @@
+/* #rectangle {
+    width: 679px;
+    height: 593px;
+    padding: 2px 2px 2px 2px;
+    border: 1px solid #797979;
+    background-color: #ffffff;
+    box-sizing: border-box;
+  } */
+p {
+  font-weight: 700;
+  color: #333333;
+  text-align: left;
+  line-height: normal;
+  margin: 0;
+}

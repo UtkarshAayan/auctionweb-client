@@ -1,0 +1,58 @@
+<div class="card border-0 mx-auto" style="max-width: 85%; width: 100%;">
+    <div class="row">
+        <div class="col-sm-8 h4 font-weight-bold text-dark">Wishlist</div>
+    </div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-loader></app-loader>  <!-- Loader shown when isLoading is true -->
+  </div>
+
+<div class="container bg-light py-5" style="max-width: 85%; margin-bottom: 70px; margin-top: 40px;" *ngIf="!isLoading">
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100" *ngIf="editData.length > 0; else wishlist">
+                <div class="col-lg-10 col-md-12" *ngFor="let wish of editData">
+                    <div class="card rounded-3 mb-4 shadow-sm position-relative">
+                        <div class="card-body p-4">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <!-- Product Image -->
+                                <div class="col-md-2 col-lg-2 col-xl-2">
+                                    <img [src]="wish.uploadDocuments[0].url" class="img-fluid rounded-3"
+                                        alt="{{ wish.productName }}">
+                                </div>
+
+                                <!-- Product Details -->
+                                <div class="col-md-5 col-lg-5 col-xl-5">
+                                    <p class="lead fw-normal mb-2 text-primary">{{wish.productName}}</p>
+                                    <p><span class="text-muted">End Date: {{ wish.endDate | date:'yyyy-MM-dd' }} </span></p>
+                                </div>
+
+                                <!-- Current Bid -->
+                                <div class="col-md-3 col-lg-3 col-xl-2">
+                                    <h5 class="mb-0 text-dark">{{wish.currentBid | currency}}</h5>
+                                </div>
+
+                                <!-- Bid Button -->
+                                <div class="col-md-2 col-lg-2 col-xl-2 text-end">
+                                    <button class="btn btn-success btn-sm" (click)="getproductById(wish._id)">Bid</button>
+                                </div>
+                            </div>
+
+                            <!-- Remove Button (Top Right, Responsive) -->
+                            <span class="remove-item position-absolute" (click)="removeProduct(wish._id)" style="top: 15px; right: 15px; cursor: pointer;">
+                                <i class="fa fa-times text-danger"></i>
+                                <span class="tooltip-text bg-dark text-white p-1 rounded">Remove</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <ng-template #wishlist >
+        <p>No Wishlisted Auctions</p>
+      </ng-template>
+</div>
+
+

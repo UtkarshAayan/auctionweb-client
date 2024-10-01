@@ -1,0 +1,41 @@
+
+
+/* Tooltip visibility on hover */
+.remove-item:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Tooltip default visibility */
+.tooltip-text {
+    position: absolute;
+    top: -25px;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Remove icon hover color change */
+.remove-item .fa-times:hover {
+    color: #dc3545;
+}
+
+/* Media query for smaller screens (mobile-friendly) */
+@media (max-width: 768px) {
+    .remove-item {
+        top: 10px;
+        right: 10px;
+    }
+    .card-body {
+        padding: 1.5rem;
+    }
+}
+
+/* Media query for larger screens */
+@media (min-width: 769px) {
+    .remove-item {
+        top: 15px;
+        right: 15px;
+    }
+}

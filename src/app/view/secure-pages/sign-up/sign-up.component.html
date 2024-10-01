@@ -1,0 +1,111 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1B3C73;">
+  <div class="container-fluid">
+    <!-- Mobile Brand Logo -->
+    <a class="navbar-brand d-md-none" href="#">
+      <img src="../../../../assets/logo3.jpg" alt="Logo" style="width: 150px;">
+    </a>
+    <!-- Toggler for mobile view -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <!-- Desktop Brand Logo -->
+      <a class="navbar-brand d-none d-md-block" href="#">
+        <img src="../../../../assets/logo3.jpg" alt="Logo" style="width: 245px; margin: 13px;">
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Registration Section -->
+<div class="bg-light py-3 py-md-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+        <div class="bg-white p-4 p-md-5 rounded shadow">
+          <!-- Form Title -->
+          <div class="text-center mb-4">
+            <h1 class="mb-3">Sign Up</h1>
+            <p class="text-muted">Create your account to get started.</p>
+          </div>
+
+          <!-- Registration Form -->
+          <form [formGroup]="userForm" (ngSubmit)="submit()">
+            <!-- Name Field -->
+            <div class="mb-3">
+              <label for="Name" class="form-label">Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="Name" formControlName="name" placeholder="Enter your name">
+              <div *ngIf="isFieldInvalid('name')" class="text-danger small">
+                Name is required and should be at least 3 characters.
+              </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+              <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email">
+              <div *ngIf="isFieldInvalid('email')" class="text-danger small">
+                Please enter a valid email address.
+              </div>
+            </div>
+
+            <!-- Username Field -->
+            <div class="mb-3">
+              <label for="userName" class="form-label">Username <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="userName" formControlName="username" placeholder="Enter your username">
+              <div *ngIf="isFieldInvalid('username')" class="text-danger small">
+                Username is required and should be at least 3 characters.
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+              <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter your password">
+              <div *ngIf="isFieldInvalid('password')" class="text-danger small">
+                Password is required and should be at least 8 characters.
+              </div>
+            </div>
+
+            <!-- Role Selection -->
+            <div class="mb-3">
+              <label class="form-label" style="margin-right: 1rem;">Register as: <span class="text-danger">*</span></label>
+              <div class="form-check form-check-inline">
+                <input type="radio" id="buyer" formControlName="role" value="buyer" class="form-check-input">
+                <label for="buyer" class="form-check-label">Buyer</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" id="seller" formControlName="role" value="seller" class="form-check-input">
+                <label for="seller" class="form-check-label">Seller</label>
+              </div>
+              <div *ngIf="isFieldInvalid('role')" class="text-danger small">
+                You must select a role.
+              </div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="iAgree" formControlName="iAgree">
+              <label class="form-check-label" for="iAgree">
+                I agree to the <a (click)="openInNewTab('/terms-condition')" class="text-decoration-none link-primary">Terms and Conditions</a>
+              </label>
+              <div *ngIf="isFieldInvalid('iAgree')" class="text-danger small">
+                You must agree to the terms and conditions.
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+          </form>
+
+          <!-- Already Registered -->
+          <div class="mt-4 text-center">
+            <p class="mb-0">Already have an account? <a routerLink="/login" class="link-primary text-decoration-none">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

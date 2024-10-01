@@ -1,0 +1,102 @@
+/* Main Section Styling */
+.main-sec {
+  background-color: #f8f9fa;
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Product Details Section */
+.product-details {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Carousel Section */
+.carousel-container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.carousel-item {
+  height: 400px;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  height: 100%;
+}
+
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Bidding Section */
+.bidding-section {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.bidding-section h6 {
+  font-weight: bold;
+}
+
+.bidding-section input {
+  border: none;
+  background-color: #f1f1f1;
+}
+
+/* Last Bidder Section */
+.last-bidder-section {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.last-bidder-section .buyer-info {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.last-bidder-section .buyer-info:hover {
+  transform: translateY(-5px);
+}
+
+/* Text Styles */
+h5, h6 {
+  color: #333;
+}
+
+p {
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .product-details, .carousel-container, .bidding-section, .last-bidder-section {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .carousel-item {
+    height: 300px;
+  }
+}

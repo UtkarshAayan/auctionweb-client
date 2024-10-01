@@ -1,0 +1,134 @@
+.container{
+    margin: 0px;
+    padding: 30px;
+    border: 0px;
+    margin: 0px auto;
+    max-width: 85%;
+    width: 100%;
+    background: #f8f9fa;
+}
+
+.card {
+    border-radius: 5px;
+  }
+  .card-img-top {
+    border-top-left-radius: 0; 
+     border-top-right-radius: 0;
+}
+
+.warning-message {
+  color: red;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.countdown-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.info-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.auction-details {
+  list-style-type: none;
+  padding: 0;
+}
+
+.auction-details li {
+  margin-bottom: 5px;
+}
+
+.countdown {
+  margin-top: 10px;
+}
+
+.countdown-text {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.countdown-timer {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.cart-item {
+  position: relative;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (min-width: 768px) {
+  .button-group {
+      flex-direction: row;
+  }
+}
+
+.custom-carousel-control {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  border-radius: 50%; /* Rounded buttons */
+  width: 50px; /* Width of the button */
+  height: 50px; /* Height of the button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute; /* Absolute positioning */
+  top: 50%; /* Position in the middle of the carousel */
+  transform: translateY(-50%); /* Center the button vertically */
+  z-index: 2; /* Ensure buttons are on top */
+}
+
+.custom-carousel-control .carousel-control-prev-icon,
+.custom-carousel-control .carousel-control-next-icon {
+  filter: invert(1); /* Invert the color of the icon to white */
+}
+
+.custom-carousel-control:hover {
+  background-color: rgba(0, 0, 0, 0.7); /* Darker background on hover */
+}
+
+.custom-carousel-control:focus {
+  outline: none; /* Remove default focus outline */
+}
+
+.carousel-control-prev {
+  left: 10px; /* Adjust the left positioning of the 'Previous' button */
+}
+
+.carousel-control-next {
+  right: 10px; /* Adjust the right positioning of the 'Next' button */
+}
+.thumbnail-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.thumbnail-item {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.thumbnail-image {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.thumbnail-image:hover {
+  border-color: #007bff;
+}

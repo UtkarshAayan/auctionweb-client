@@ -1,0 +1,90 @@
+<div *ngIf="isLoading">
+  <app-loader></app-loader>  <!-- Loader shown when isLoading is true -->
+</div>
+
+<div class="container-fluid py-5 main-sec" *ngIf="!isLoading">
+  <!-- Start Details Section -->
+  <section *ngIf="dataArray" class="card product-details mx-auto mb-5">
+    <div class="card-header text-center fw-bold">
+      Lot Number - {{dataArray.lotNumber}}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{dataArray.productName}}</h5>
+      <p class="card-text">{{dataArray.productDescription}}</p>
+    </div>
+  </section>
+
+  <!-- Start Carousel Section -->
+  <section *ngIf="dataArray" class="carousel-container mx-auto mb-5">
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+      <!-- Carousel indicators -->
+      <div class="carousel-indicators">
+        <button *ngFor="let document of dataArray.uploadDocuments; let i = index" type="button"
+                [class.active]="i === 0" [attr.data-bs-slide-to]="i"
+                data-bs-target="#carouselExampleAutoplaying" [attr.aria-label]="'Slide ' + (i + 1)">
+        </button>
+      </div>
+
+      <!-- Carousel inner (images) -->
+      <div class="carousel-inner">
+        <div *ngFor="let document of dataArray.uploadDocuments; let i = index"
+             class="carousel-item" [class.active]="i === 0">
+          <img [src]="document.url" class="d-block w-100" [alt]="'Slide ' + (i + 1)">
+          <div class="carousel-caption">
+            <h5>{{dataArray.productName}}</h5>
+            <p>{{dataArray.productDescription}}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Start Bidding Section -->
+  <section *ngIf="dataArray" class="card bidding-section mx-auto mb-5">
+    <div class="row text-center py-3">
+      <div class="col-md-6">
+        <h6 class="fw-bold">Current Bid</h6>
+        <input type="text" readonly class="form-control text-center" placeholder="{{dataArray.currentBid}} USD">
+      </div>
+      <div class="col-md-6">
+        <h6 class="fw-bold">Total Bids</h6>
+        <p>{{dataArray.bids.length}}</p>
+      </div>
+    </div>
+    <div class="row text-center py-3">
+      <div class="col-md-6">
+        <h6 class="fw-bold">Sales Tax</h6>
+        <p>{{ dataArray.saleTax ? 'Yes' : 'No' }}</p>
+      </div>
+      <div class="col-md-6">
+        <h6 class="fw-bold">Buyer's Premium</h6>
+        <p>{{ dataArray.buyerPremium ? 'Yes' : 'No' }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Last Bidder Section -->
+  <section *ngIf="dataArray && dataArray.bids && dataArray.bids.length; else noData" class="container last-bidder-section mx-auto">
+    <h4 class="text-center mb-4">Last Bidder</h4>
+    <div class="buyer-info" *ngFor="let buyer of dataArray.bids">
+      <p><strong>Username:</strong> {{buyer.username}}</p>
+      <p><strong>Amount:</strong>{{buyer.amount | currency}}</p>
+    </div>
+  </section>
+  <ng-template #noData>
+    <div class="text-center">
+      <h4 class="m-0 mb-5">Last Bidder </h4>
+      You will be the first one
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,46 @@
+<div class="container mt-5 mb-5" style="max-width: 800px;">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+          <h4 class="card-title">Make Payment</h4>
+        </div>
+        <div class="card-body p-4">
+          <form>
+            <!-- Amount input -->
+            <div class="form-group mb-4">
+              <label for="amount" class="form-label">Amount (in dollars):</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="amount"
+                id="amount"
+                name="amount"
+                placeholder="Enter amount"
+                min="1"
+              />
+            </div>
+
+            <!-- Stripe Card Element -->
+            <div class="form-group mb-4">
+              <label for="card-element" class="form-label">Card Details:</label>
+              <div id="card-element" class="form-control">
+                <!-- Stripe will inject the card input field here -->
+              </div>
+            </div>
+
+            <!-- Error message -->
+            <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+
+            <!-- Payment button -->
+            <div class="text-center">
+              <button type="button" class="btn btn-success btn-lg" (click)="pay()">
+                Pay {{ amount | currency:'USD' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

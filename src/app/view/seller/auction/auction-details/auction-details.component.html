@@ -1,0 +1,394 @@
+<!-- <div>
+    <form class="row g-3">
+        <div class="col-md-6">
+            <label for="inputEmail4" class="form-label">Email</label>
+            <input type="email" class="form-control" id="inputEmail4">
+        </div>
+        <div class="col-md-6">
+            <label for="inputPassword4" class="form-label">Password</label>
+            <input type="password" class="form-control" id="inputPassword4">
+        </div>
+    </form>
+</div> -->
+<div class="container my-3" style="background-color: #f8f9fa;">
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 justify-content-center py-3">
+
+            <form [formGroup]="productForm">
+                <h4 class="m-0 pb-5 text-center">Product Details</h4>
+                <h6 class="m-0 pb-4">Lot - XXYYYYY</h6>
+                <!-- <h5 class="m-0 pb-3">Required</h5> -->
+                <div class="form-group row pb-3">
+                    <label for="exampleInputName1" class="col-sm-3 col-form-label">Product Name<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <input formControlName="productName" type="text" class="form-control" id="exampleInputName1"
+                            aria-describedby="nameHelp" placeholder=" " required>
+                    </div>
+                </div>
+                <div class="form-group row pb-4">
+                    <label for="exampleInputitem1" class="col-sm-3 col-form-label">Category<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <select formControlName="category" class="form-select" aria-label="Default select example"
+                            required>
+                            <option selected>--select category--</option>
+                            <option *ngFor="let category of dropArray" [value]="category.catName">{{category.catName}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row pb-4">
+                    <label for="exampleInputauctionname1" class="col-sm-3 col-form-label">Subcategory<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-3">
+                        <select class="form-select" aria-label="Default select example" required>
+                            <option selected>select category</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                            <option value="option3">Option 3</option>
+                        </select>
+                    </div>
+                    <label for="exampleInputitem1" class="col-sm-3 col-form-label">Product Condition<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-3">
+                        <select formControlName="productCondition" class="form-select"
+                            aria-label="Default select example" required>
+                            <option selected>--select condition--</option>
+                            <option *ngFor="let condition of dataCondition" [value]="condition">{{condition}}</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row pb-4">
+                    <label for="exampleInputcolor1" class="col-sm-3 col-form-label">Color<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <select formControlName="color" class="form-select" aria-label="Default select example">
+                            <option selected>--select color--</option>
+                            <option *ngFor="let color of dataColor" [value]="color">{{color}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- <h5 class="m-0 pb-3">Condition<span style="color: red;">*</span></h5> -->
+                <!-- <div class="form-group row pb-4">
+                    <label for="exampleInputitem1" class="col-sm-3 col-form-label">Product Condition<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <select formControlName="productCondition" class="form-select" aria-label="Default select example" required>
+                            <option selected>--select condition--</option>
+                            <option *ngFor="let condition of dataCondition" [value]="condition">{{condition}}</option>
+                           
+                        </select>
+                    </div>
+                </div> -->
+
+                <!-- <h5 class="m-0 pb-3">Description<span style="color: red;">*</span></h5> -->
+                <div class="form-group row pb-4">
+                    <label for="exampleInputcondition1" class="col-sm-3 col-form-label">Product Description<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <textarea formControlName="productDescription" class="form-control" id="exampleInputcondition1"
+                            rows="3" placeholder="Write a detailed description of your item"></textarea>
+                    </div>
+                </div>
+               
+                <div class="form-group row py-3">
+                    <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Brand<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <input formControlName="brand" type="text" class="form-control" id="exampleInputmaterial1"
+                            aria-describedby="materialHelp" placeholder="  " required>
+                    </div>
+                </div>
+
+                <!-- start price -->
+                <div class="form-group row py-3">
+                    <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Starting Price<span
+                            class="text-danger">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input formControlName="startingPrice" type="number" class="form-control"
+                                #startingPriceInput id="exampleInputmaterial1" aria-describedby="materialHelp"
+                                placeholder=" " required>
+                            <button class="btn btn-primary" type="button"
+                                (click)="copyStartingPrice(startingPriceInput.value)">Enter</button>
+                        </div>
+                    </div>
+                    <label for="exampleInputmaterial1" class="col-sm-3 col-form-label ps-4">Reserve Price<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input formControlName="reservePrice" type="number" class="form-control" #reservedPriceInput
+                                id="exampleInputmaterial1" aria-describedby="materialHelp" placeholder=" " required>
+                            <button class="btn btn-primary" type="button"
+                                (click)="copyReservedPrice(reservedPriceInput.value)">Enter</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- start modal -->
+                <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Payment</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="creditCardForm">
+                                    <div class="mb-3">
+                                        <label for="cardNumber" class="form-label">Card Number</label>
+                                        <input type="text" class="form-control" id="cardNumber" required>
+                                    </div>
+                                    <div class="form-group row py-3">
+                                        <div class="col-sm-12">
+                                            <div class="mb-1 d-flex">
+                                                <div class="flex-fill me-1">
+                                                    <label for="expiryMonth" class="form-label">Expiry Month</label>
+                                                    <select class="form-select" id="expiryMonth" required>
+                                                        <option value="" selected disabled>Select Month</option>
+                                                        <option value="01">January</option>
+                                                        <option value="02">February</option>
+                                                        <option value="03">March</option>
+                                                        
+                                                    </select>
+                                                </div>
+                                                <div class="flex-fill ms-1">
+                                                    <label for="expiryYear" class="form-label">Expiry Year</label>
+                                                    <select class="form-select" id="expiryYear" required>
+                                                        <option value="" selected disabled>Select Year</option>
+                                                        <option value="2022">2022</option>
+                                                        <option value="2023">2023</option>
+                                                        <option value="2024">2024</option>
+                                                      
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="cvv" class="form-label">CVV</label>
+                                        <input type="text" class="form-control" id="cvv" required>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary">Pay Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- end modal -->
+
+                <!-- reseved price -->
+                <!-- <div class="form-group row py-3">
+                    <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Reserve Price<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" #reservedPriceInput id="exampleInputmaterial1" aria-describedby="materialHelp" placeholder=" " required>
+                            <button class="btn btn-primary" type="button" (click)="copyReservedPrice(reservedPriceInput.value)">Enter</button>
+                        </div>
+                    </div>
+                    <label for="exampleInputmaterial2" class="col-sm-3 col-form-label ps-5">
+                        Reserved Price
+                    </label>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-describedby="materialHelp" placeholder=" " required [value]="copiedReservedPrice">
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- credit card payment -->
+
+                <!-- sale tax -->
+                <div class="form-group row pb-4 align-items-center">
+                    <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Sale Tax</label>
+                    <div class="col-sm-9">
+                        <div class="form-check form-check-inline pe-5">
+                            <input class="form-check-input me-3" type="radio" name="materialRadio" id="usedRadio"
+                                value="used">
+                            <label class="form-check-label" for="usedRadio">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input me-3" type="radio" name="materialRadio" id="newRadio"
+                                value="new">
+                            <label class="form-check-label" for="newRadio">No</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- date -->
+                <div class="form-group row py-3">
+                    <label for="exampleInputStartTime" class="col-sm-2 col-form-label">Start Date<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input formControlName="startDate" type="date" class="form-control" #startTimeInput
+                                id="exampleInputStartTime" aria-describedby="startTimeHelp" placeholder=" " required>
+
+                        </div>
+                    </div>
+
+                    <label for="exampleInputStopTime" class="col-sm-2 col-form-label ps-4">End Date<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input formControlName="endDate" type="date" class="form-control" #stopTimeInput
+                                id="exampleInputStopTime" aria-describedby="stopTimeHelp" placeholder=" " required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- start & stop time -->
+                <div class="form-group row py-3">
+                    <label for="exampleInputStartTime" class="col-sm-2 col-form-label">Start Time<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input formControlName="startTime" type="time" class="form-control" #startTimeInput
+                                id="exampleInputStartTime" aria-describedby="startTimeHelp" placeholder=" " required>
+                            <button class="btn btn-success" type="button" (click)="copyStartTime()">Start</button>
+                        </div>
+                    </div>
+
+                    <label for="exampleInputStopTime" class="col-sm-2 col-form-label ps-4">Stop Time<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input formControlName="stopTime" type="time" class="form-control" #stopTimeInput
+                                id="exampleInputStopTime" aria-describedby="stopTimeHelp" placeholder=" " required>
+                            <button class="btn btn-danger" type="button" (click)="copyStopTime()">Stop</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- increment option -->
+                <!-- <div class="form-group row pb-3 align-items-center">
+                    <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Increment Option</label>
+                    <div class="col-sm-9">
+                        <div class="form-check form-check-inline pe-5">
+                            <input class="form-check-input me-3" type="radio" name="materialRadio" id="usedRadio"
+                                value="used">
+                            <label class="form-check-label" for="usedRadio">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input me-3" type="radio" name="materialRadio" id="newRadio"
+                                value="new">
+                            <label class="form-check-label" for="newRadio">No</label>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- buyer premium -->
+                <div class="form-group row pb-4 align-items-center">
+                    <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Buyer's Premium</label>
+                    <div class="col-sm-9">
+                        <div class="form-check form-check-inline pe-5">
+                            <input class="form-check-input me-3" type="radio" name="materialRadio" id="usedRadio"
+                                value="used">
+                            <label class="form-check-label" for="usedRadio">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input me-3" type="radio" name="materialRadio" id="newRadio"
+                                value="new">
+                            <label class="form-check-label" for="newRadio">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shopping -->
+                <div class="form-group row pb-4 align-items-center">
+                    <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Shipping</label>
+                    <div class="col-sm-9">
+                        <div class="form-check form-check-inline pe-5">
+                            <input class="form-check-input me-3" type="radio" name="materialRadio" id="usedRadio"
+                                value="used">
+                            <label class="form-check-label" for="usedRadio">Available</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input me-3" type="radio" name="materialRadio" id="newRadio"
+                                value="new">
+                            <label class="form-check-label" for="newRadio">Not Available</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- collect -->
+                <div class="form-group row pb-4 align-items-center">
+                    <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Collect<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <div class="form-check form-check-inline pe-5">
+                            <input class="form-check-input me-3" type="radio" name="materialRadio" id="usedRadio"
+                                value="used">
+                            <label class="form-check-label" for="usedRadio">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input me-3" type="radio" name="materialRadio" id="newRadio"
+                                value="new">
+                            <label class="form-check-label" for="newRadio">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="m-0 pb-4">Item Location<span style="color: red;">*</span></h6>
+                <div class="form-group row pb-4">
+                    <label for="exampleInputauctionname1" class="col-sm-3 col-form-label">Address</label>
+                    <div class="col-sm-9">
+                        <input formControlName="address" type="text" class="form-control" id="exampleInputauctionname1"
+                            aria-describedby="auctionnameHelp" placeholder="  ">
+                    </div>
+                </div>
+
+                <div class="form-group row pb-4">
+                    <label for="exampleInputauctionname1" class="col-sm-3 col-form-label">Town</label>
+                    <div class="col-sm-3">
+                        <input formControlName="town" type="text" class="form-control" id="exampleInputauctionname1"
+                            aria-describedby="auctionnameHelp" placeholder="  ">
+                    </div>
+                    <label for="exampleInputauctionname1" class="col-sm-3 col-form-label ps-5">Country</label>
+                    <div class="col-sm-3">
+                        <input formControlName="country" type="text" class="form-control" id="exampleInputauctionname1"
+                            aria-describedby="auctionnameHelp" placeholder="  ">
+                    </div>
+                </div>
+
+                <!-- Auction Form -->
+
+                <div class="form-group row pb-4">
+                    <label for="exampleInputauctiontype1" class="col-sm-3 col-form-label">Upload Documents<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <input formControlName="uploadDocuments" type="file" class="form-control"
+                            id="exampleInputauctiontype1" placeholder="  ">
+                        <small id="emailHelp" class="form-text text-muted">Upload Img/Doc <span style="color: red;">Max
+                                Size 2MB </span> </small>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group row text-center">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <button (click)="submit()" routerLink="/auction-details" type="submit"
+                            class="btn btn-secondary px-4">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+
+
+</div>

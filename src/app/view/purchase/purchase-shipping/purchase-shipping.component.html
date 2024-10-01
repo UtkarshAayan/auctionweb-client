@@ -1,0 +1,170 @@
+<div class="container p-5 mt-2" style="max-width: 85%; background: #f8f9fa;">
+  <h5 class="text-center mb-5">Shipping Address</h5>
+  <div class="row d-flex justify-content-around" *ngIf="!isLoading">
+    <div class="col-md-4 mb-4 mb-lg-0" *ngIf="dataArray && dataArray.uploadDocuments.length > 0">
+      <div id="mainCarousel" class="carousel slide">
+        <div class="carousel-inner">
+          <div *ngFor="let doc of dataArray.uploadDocuments; let i = index" [class.active]="i === 0"
+            class="carousel-item">
+            <img [src]="doc.url" class="d-block w-100" alt="Product Image" height="350" />
+          </div>
+        </div>
+        <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#mainCarousel"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#mainCarousel"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <div class="thumbnail-container mt-2">
+        <button *ngFor="let doc of dataArray.uploadDocuments; let i = index" class="thumbnail-item" type="button"
+          data-bs-target="#mainCarousel" [attr.data-bs-slide-to]="i">
+          <img [src]="doc.url" class="thumbnail-image" alt="Thumbnail Image" />
+        </button>
+      </div>
+    </div>
+
+
+    <div class="col-md-6 mb-4 mb-lg-0 bg-white pt-2">
+      <div class="card mb-3" *ngIf="dataArray && dataArray.shipping">
+        <div class="card-header h6 d-flex justify-content-between align-items-center">
+          <span>Select your Address Details</span>
+          <button class="btn btn-outline-secondary btn-sm" (click)="toggleAddAddressForm()">Add Address</button>
+        </div>
+
+        <div class="card-body">
+          <!-- Add Address Form -->
+          <div *ngIf="showAddAddressForm">
+            <form [formGroup]="addressForm">
+              <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" id="fullName" formControlName="fullName" class="form-control" />
+              </div>
+              <div class="mb-3">
+                <label for="street" class="form-label">Street</label>
+                <input type="text" id="street" formControlName="street" class="form-control" />
+              </div>
+              <div class="mb-3">
+                <label for="city" class="form-label">City</label>
+                <input type="text" id="city" formControlName="city" class="form-control" />
+              </div>
+              <div class="mb-3">
+                <label for="state" class="form-label">State</label>
+                <input type="text" id="state" formControlName="state" class="form-control" />
+              </div>
+              <div class="mb-3">
+                <label for="country" class="form-label">Country</label>
+                <div class="col-sm-3">
+                  <select formControlName="country" class="form-select" required>
+                      <option disabled selected>--select country--</option>
+                      <option *ngFor="let country of countries" [value]="country.name">{{country.name}}
+                      </option>
+                  </select>
+              </div>
+              </div>
+              <div class="mb-3">
+                <label for="zip" class="form-label">Zip Code</label>
+                <input type="text" id="zip" formControlName="zip" class="form-control" />
+              </div>
+       
+
+              <button type="button" class="btn btn-primary" (click)="addAddress()">Add Address</button>
+            </form>
+            <hr />
+          </div>
+
+          <!-- Addresses List -->
+          <div *ngFor="let address of addressArray" class="d-flex align-items-start mb-3">
+            <input class="form-check-input me-3 mt-1" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+              [id]="address._id" (change)="onAddressSelect(address._id)">
+            <div class="card flex-grow-1" style="border: none;">
+              <div class="card-body">
+                <h5 class="card-title mb-1">{{ address.fullName }}</h5>
+                <p class="card-text mb-1">{{ address.street }}</p>
+                <p class="card-text mb-1">{{ address.city }}</p>
+                <p class="card-text mb-1">{{ address.state }}</p>
+                <p class="card-text">{{ address.country }}</p>
+                <p class="card-text">{{ address.zip }}</p>
+                <div class="d-flex justify-content-end">
+                  <button class="btn btn-warning btn-sm me-2" (click)="toggleEditAddressForm(address)">Edit</button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteAddress(address._id)">Delete</button>
+                </div>
+              </div>
+            </div>
+            <!-- Edit Address Form -->
+            <div *ngIf="showEditAddressForm">
+              <form [formGroup]="editAddressForm">
+                <div class="mb-3">
+                  <label for="editFullName" class="form-label">Full Name</label>
+                  <input type="text" id="editFullName" formControlName="fullName" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="editStreet" class="form-label">Street</label>
+                  <input type="text" id="editStreet" formControlName="street" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="editCity" class="form-label">City</label>
+                  <input type="text" id="editCity" formControlName="city" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="editState" class="form-label">State</label>
+                  <input type="text" id="editState" formControlName="state" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="country" class="form-label">Country</label>
+                  <div class="col-sm-6">
+                    <select formControlName="country" class="form-select" required>
+                        <option disabled selected>--select country--</option>
+                        <option *ngFor="let country of countries" [value]="country.name">{{country.name}}
+                        </option>
+                    </select>
+                </div>
+                </div>
+                <div class="mb-3">
+                  <label for="editZip" class="form-label">Zip Code</label>
+                  <input type="text" id="editZip" formControlName="zip" class="form-control" />
+                </div>
+                <button type="button" class="btn btn-primary" (click)="updateAddress()">Update Address</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- seller address -->
+      <div class="card mb-3" *ngIf="dataArray && !dataArray.shipping">
+        <div class="card-header h6 d-flex justify-content-between align-items-center">
+          <span>Collection Address</span>
+        </div>
+      
+        <div class="card-body">
+          <!-- Addresses List -->
+          <div class="d-flex align-items-start mb-3">
+            <div class="card flex-grow-1 border-0">
+              <div class="card-body p-0">
+                <address class="mb-0">
+                  <strong>{{ dataArray.address }}</strong><br>
+                  <span>{{ dataArray.town }}, {{ dataArray.country }}</span>
+                </address>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <button type="button" class="btn btn-primary"
+        (click)="(buyNowPrice == 'true') ? createOrderforBuyNow() : createOrder()">
+        Go To Checkout
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isLoading">
+    <app-loader></app-loader>  
+  </div>
+</div>

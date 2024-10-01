@@ -1,0 +1,49 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Help Page</h1>
+
+    <!-- FAQ Section -->
+    <div class="accordion" id="faqAccordion">
+        <div *ngFor="let content of helpContents; let i = index" class="accordion-item">
+            <h2 class="accordion-header" [id]="'heading' + i">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" aria-expanded="true" [attr.aria-controls]="'collapse' + i">
+                    {{ content.title }}
+                </button>
+            </h2>
+            <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {{ content.content }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Us Form -->
+    <div class="mt-5">
+        <h2>Contact Us</h2>
+        <div class="contact-form">
+            <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="name" class="form-label">Name</label>
+                        <input formControlName="name"type="text" class="form-control" id="name" placeholder="Your name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email address</label>
+                        <input formControlName="email" type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="subject" class="form-label">Subject</label>
+                        <input formControlName="subject" type="text" class="form-control" id="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea formControlName="message" class="form-control" id="message" rows="4" placeholder="Your message" required></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

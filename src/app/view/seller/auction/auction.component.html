@@ -1,0 +1,582 @@
+<div *ngIf="isLoading">
+    <app-loader></app-loader>  <!-- Loader shown when isLoading is true -->
+  </div>
+<!-- start corausel -->
+<div class="container my-4" *ngIf="!isLoading">
+    <div id="carouselExampleAutoplaying" class="carousel carousel-dark slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button *ngFor="let image of bannerImages; let i = index"
+                type="button"
+                [attr.data-bs-target]="'#carouselExampleAutoplaying'"
+                [attr.data-bs-slide-to]="i"
+                [class.active]="i === 0"
+                [attr.aria-current]="i === 0 ? 'true' : null"
+                [attr.aria-label]="'Slide ' + (i + 1)">
+        </button>
+      </div>
+      <!-- carousel section start -->
+      <div class="carousel-inner">
+        <div *ngFor="let image of bannerImages; let i = index"
+             class="carousel-item"
+             [class.active]="i === 0">
+          <img [src]="image" class="d-block w-100" alt="...">
+          <div class="carousel-overlay"></div>
+          <div class="carousel-caption">
+            <!-- <h5>{{ 'Slide ' + (i + 1) + ' label' }}</h5>
+            <p>{{ 'Some representative placeholder content for slide ' + (i + 1) + '.' }}</p> -->
+          </div>
+        </div>
+      </div>
+      <!-- carousel section end -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+              data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+              data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+  
+
+<!-- end corausel -->
+<div class="d-grid gap-2 col-6 mx-auto" *ngIf="!isLoading">
+    <button routerLink="/sellers-upload-document" class="btn btn-primary btn-attractive" type="button">Create An
+        Auction</button>
+</div>
+
+
+<!-- start Featured Lots -->
+<div class="container mt-5 mb-3 text-start" *ngIf="!isLoading">
+    <h3 class="m-0">Featured Lots</h3>
+</div>
+
+
+<div class="container py-5 mb-5" style="background-color: #f8f9fa;" *ngIf="!isLoading">
+    <!-- start items-section -->
+
+    <div class="container my-4" >
+        <!-- Search Bar -->
+        <div class="row">
+          <!-- Flexbox container to align the search input to the right -->
+          <div class="col-md-12 d-flex justify-content-end">
+            <div class="position-relative" style="width: 300px;"> <!-- Adjust width as needed -->
+              <!-- Search input field -->
+              <input [(ngModel)]="searchQuery" (ngModelChange)="searchProducts()" 
+                     type="text" class="form-control pe-5" placeholder="Search by Product Name">
+                     
+              <!-- Cross button to clear search (positioned on the right side) -->
+              <span *ngIf="searchQuery" 
+                    class="position-absolute" 
+                    style="top: 50%; right: 10px; transform: translateY(-50%); cursor: pointer;" 
+                    (click)="clearSearch()">
+                ❌
+              </span>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Product List -->
+        <div class="row pt-5 pe-5 ps-5" *ngIf="!noProductsFound">
+          <div class="col-sm-3 mb-3" *ngFor="let auction of sellerpro">
+            <div class="card" *ngIf="auction.proVerifyByAdmin === true">
+              <div class="card-header bg-transparent border-success text-center">{{auction.lotNumber}}</div>
+              <div class="card-img-container text-center" *ngIf="auction.uploadDocuments && auction.uploadDocuments.length > 0">
+                <img [src]="auction.uploadDocuments[0].url" class="img-fluid" alt="Product Image">
+              </div>
+              <div class="card-body text-center">
+                <h6 class="card-title text-center">{{auction.productName}}</h6>
+                <p class="card-text text-center">{{auction.startTime}}</p>
+              </div>
+              <div class="card-footer gap-2 d-flex justify-content-center">
+                <button (click)="getproductById1(auction._id)" class="btn btn-primary btn-sm" type="button">Bid</button>
+                <button class="btn btn-secondary btn-sm" (click)="getproductById(auction._id)"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal" type="button">View</button>
+                <button (click)="getproductById(auction._id)" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                        class="btn btn-success btn-sm" type="button">Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="noProductsFound">
+          <div class="col-md-12 text-center">
+            <p>No products found</p>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="totalPages > 1">
+        <div class="col-md-12">
+          <!-- Pagination controls aligned to the right -->
+          <div class="d-flex justify-content-end">
+            <button (click)="prevPage()" [disabled]="currentPage === 1" class="btn btn-outline-primary btn-sm me-2">
+              Previous
+            </button>
+            <span class="px-2">Page {{currentPage}} of {{totalPages}}</span>
+            <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="btn btn-outline-primary btn-sm ms-2">
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      
+    <!-- modal -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-xl">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form [formGroup]="proForm">
+
+                        <!-- Submitted Product Details -->
+                        <div *ngIf="dataArray" class="container mt-5">
+                            <div class="card">
+                                <div class="card-header text-center">
+                                    <h2>Product Details</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><strong>Product Name:</strong> {{ dataArray.productName }}</p>
+                                            <p><strong>Category:</strong> {{ dataArray.category }}</p>
+                                            <p><strong>Color:</strong> {{ dataArray.color }}</p>
+                                            <p><strong>Description:</strong> {{ dataArray.productDescription }}</p>
+                                            <p><strong>Condition:</strong> {{ dataArray.productCondition }}</p>
+                                            <p><strong>Brand:</strong> {{ dataArray.brand }}</p>
+                                            <p><strong>Starting Price:</strong> {{ dataArray.startingPrice }}</p>
+                                            <p><strong>Reserve Price:</strong> {{ dataArray.reservePrice }}</p>
+                                            <p><strong>Buy Now Price:</strong> {{ dataArray.buyNowPrice }}</p>
+                                            <p><strong>Sale Tax:</strong> {{ dataArray.saleTax ? 'Yes' : 'No' }}</p>
+                                            <p><strong>Start Date:</strong> {{ dataArray.startDate | date }}</p>
+                                            <p><strong>End Date:</strong> {{ dataArray.endDate | date }}</p>
+                                            <p><strong>Start Time:</strong> {{ dataArray.startTime }}</p>
+                                            <p><strong>Stop Time:</strong> {{ dataArray.stopTime }}</p>
+                                            <p><strong>Address:</strong> {{ dataArray.address }}</p>
+                                            <p><strong>Town:</strong> {{ dataArray.town }}</p>
+                                            <p><strong>Comment:</strong> {{ dataArray.comment }}</p>
+                                            <p><strong>Country:</strong> {{ dataArray.country }}</p>
+                                            <div class="col-md-6 mb-2">
+                                                <div class="card" *ngFor="let image of dataArray.uploadDocuments">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-center">Product Image</h5>
+                                                        <div class="text-center">
+                                                            <img [src]="image.url" class="img-fluid img-thumbnail"
+                                                                alt="Product Image">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card" *ngFor="let doc of dataArray.essentialDocs">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-center">Document</h5>
+                                                        <div class="text-center">
+                                                            <p>{{ doc.filename }}</p>
+                                                            <a [href]="doc.url" target="_blank"
+                                                                class="btn btn-primary">View/Download Document</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- modal to edit -->
+
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModal1Label" aria-hidden="true">
+        <div class="modal-dialog  modal-xl">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form [formGroup]="proForm">
+                        <h4 class="m-0 pb-5 text-center">Product Form</h4>
+                        <h6 class="m-0 pb-4">Lot - XXYYYYY</h6>
+                        <!-- <h5 class="m-0 pb-3">Required</h5> -->
+                        <div class="form-group row pb-3">
+                            <label for="exampleInputName1" class="col-sm-3 col-form-label">Product Name<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <input formControlName="productName" type="text" class="form-control"
+                                    id="exampleInputName1" aria-describedby="nameHelp" placeholder=" " required>
+                            </div>
+                        </div>
+                        <div class="form-group row pb-4">
+                            <label for="exampleInputitem1" class="col-sm-3 col-form-label">Category<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <select formControlName="category" class="form-select"
+                                    aria-label="Default select example" required>
+                                    <option selected>--select category--</option>
+                                    <option *ngFor="let category of dropArray" [value]="category.catName">
+                                        {{category.catName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row pb-4">
+                            <!-- <label for="exampleInputauctionname1" class="col-sm-3 col-form-label">Subcategory<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-3">
+                                <select class="form-select" aria-label="Default select example" required>
+                                    <option selected>select category</option>
+                                    <option value="option1">Option 1</option>
+                                    <option value="option2">Option 2</option>
+                                    <option value="option3">Option 3</option>
+                                </select>
+                            </div> -->
+                            <label for="exampleInputitem1" class="col-sm-3 col-form-label">Product Condition<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-3">
+                                <select formControlName="productCondition" class="form-select"
+                                    aria-label="Default select example" required>
+                                    <option selected>--select condition--</option>
+                                    <option *ngFor="let condition of dataCondition" [value]="condition">{{condition}}
+                                    </option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row pb-4">
+                            <label for="exampleInputcolor1" class="col-sm-3 col-form-label">Color<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <select formControlName="color" class="form-select" aria-label="Default select example">
+                                    <option selected>--select color--</option>
+                                    <option *ngFor="let color of dataColor" [value]="color">{{color}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <h5 class="m-0 pb-3">Description<span style="color: red;">*</span></h5> -->
+                        <div class="form-group row pb-4">
+                            <label for="exampleInputcondition1" class="col-sm-3 col-form-label">Product Description<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <textarea formControlName="productDescription" class="form-control"
+                                    id="exampleInputcondition1" rows="3"
+                                    placeholder="Write a detailed description of your item"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row py-3">
+                            <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Brand<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <input formControlName="brand" type="text" class="form-control"
+                                    id="exampleInputmaterial1" aria-describedby="materialHelp" placeholder="  "
+                                    required>
+                            </div>
+                        </div>
+                        <div class="form-group row pb-4" formArrayName="dynamicFields">
+                            <label class="col-sm-3 col-form-label">Dynamic Fields</label>
+                            <div class="col-sm-9">
+                                <div *ngFor="let dynamicField of dynamicFields.controls; let i = index"
+                                    [formGroupName]="i" class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Key</span>
+                                    </div>
+                                    <input formControlName="key" type="text" class="form-control"
+                                        placeholder="Enter key" required>
+
+                                    <div class="input-group-prepend ms-2">
+                                        <span class="input-group-text">Value</span>
+                                    </div>
+                                    <input formControlName="value" type="text" class="form-control"
+                                        placeholder="Enter value" required>
+
+                                    <button type="button" (click)="removeDynamicField(i)"
+                                        class="btn btn-danger ms-2 btn-sm"> <i class="bi bi-trash"></i> </button>
+                                </div>
+
+                                <button type="button" (click)="addDynamicField()" class="btn btn-primary btn-sm">Add
+                                    Other</button>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- start price -->
+                        <div class="form-group row py-3">
+                            <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Starting Price<span
+                                    class="text-danger">*</span>
+                            </label>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input formControlName="startingPrice" type="number" class="form-control"
+                                        #startingPriceInput id="exampleInputmaterial1" aria-describedby="materialHelp"
+                                        placeholder=" " required>
+                                    <button class="btn btn-primary" type="button"
+                                        (click)="copyStartingPrice(startingPriceInput.value)">Enter</button>
+                                </div>
+                            </div>
+                            <label for="exampleInputmaterial1" class="col-sm-3 col-form-label ps-4">Reserve Price<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input formControlName="reservePrice" type="number" class="form-control"
+                                        #reservedPriceInput id="exampleInputmaterial1" aria-describedby="materialHelp"
+                                        placeholder=" " required>
+                                    <button class="btn btn-primary" type="button"
+                                        (click)="copyReservedPrice(reservedPriceInput.value)">Enter</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pb-4">
+                            <label for="exampleInputmaterial7" class="col-sm-3 col-form-label">Buy Now Price <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input formControlName="buyNowPrice" type="number" class="form-control"
+                                        #reservedPriceInput id="exampleInputmaterial7" aria-describedby="materialHelp"
+                                        placeholder=" " required>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- credit card payment -->
+
+                        <!-- sale tax -->
+                        <div class="form-group row pb-4 align-items-center">
+                            <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Sale Tax</label>
+                            <div class="col-sm-9">
+                                <div class="form-check form-check-inline pe-5">
+                                    <input type="radio" formControlName="saleTax" value="true" id="saleTaxYes">
+                                    <label for="saleTaxYes">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" formControlName="saleTax" value="false" id="saleTaxNo">
+                                    <label for="saleTaxNo">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- date -->
+                        <div class="form-group row py-3">
+                            <label for="exampleInputStartTime" class="col-sm-2 col-form-label">Start Date<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input formControlName="startDate" type="date" class="form-control" #startTimeInput
+                                        id="exampleInputStartTime" aria-describedby="startTimeHelp" placeholder=" "
+                                        required>
+
+                                </div>
+                            </div>
+
+                            <label for="exampleInputStopTime" class="col-sm-2 col-form-label ps-4">End Date<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input formControlName="endDate" type="date" class="form-control" #stopTimeInput
+                                        id="exampleInputStopTime" aria-describedby="stopTimeHelp" placeholder=" "
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- start & stop time -->
+                        <div class="form-group row py-3">
+                            <label for="exampleInputStartTime" class="col-sm-2 col-form-label">Start Time<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input formControlName="startTime" type="time" class="form-control" #startTimeInput
+                                        id="exampleInputStartTime" aria-describedby="startTimeHelp" placeholder=" "
+                                        required>
+                                    <button class="btn btn-success" type="button"
+                                        (click)="copyStartTime()">Start</button>
+                                </div>
+                            </div>
+
+                            <label for="exampleInputStopTime" class="col-sm-2 col-form-label ps-4">Stop Time<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input formControlName="stopTime" type="time" class="form-control" #stopTimeInput
+                                        id="exampleInputStopTime" aria-describedby="stopTimeHelp" placeholder=" "
+                                        required>
+                                    <button class="btn btn-danger" type="button" (click)="copyStopTime()">Stop</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- buyer premium -->
+                        <div class="form-group row pb-4 align-items-center">
+                            <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Buyer's Premium</label>
+                            <div class="col-sm-9">
+                                <div class="form-check form-check-inline pe-5">
+                                    <input type="radio" formControlName="buyerPremium" value="true"
+                                        id="buyerPremiumYes">
+                                    <label for="buyerPremiumYes">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" formControlName="buyerPremium" value="false"
+                                        id="buyerPremiumNo">
+                                    <label for="buyerPremiumNo">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shopping -->
+                        <!-- Shipping Radio Buttons -->
+                        <div class="form-group row pb-4 align-items-center">
+                            <label for="shipping" class="col-sm-3 col-form-label">Shipping</label>
+                            <div class="col-sm-9">
+                                <div class="form-check form-check-inline pe-5">
+                                    <input type="radio" formControlName="shipping" value="true" id="shippingYes"
+                                        (change)="onShippingChange(true)">
+                                    <label for="shippingYes">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" formControlName="shipping" value="false" id="shippingNo"
+                                        (change)="onShippingChange(false)">
+                                    <label for="shippingNo">No</label>
+                                </div>
+                            </div>
+                        </div>
+                 
+                        <div *ngIf="isShippingEnabled">
+                            <div formArrayName="shippingDetails">
+                                <div *ngFor="let detail of shippingDetails.controls; let i = index" [formGroupName]="i"
+                                    class="row pb-3 mb-3 border rounded bg-light">
+                                    <div class="col-sm-6">
+                                        <label class="form-label" for="country-{{i}}">Country</label>
+                                        <select formControlName="country" class="form-select" id="country-{{i}}">
+                                            <option value="" disabled>-- select country --</option>
+                                            <option *ngFor="let country of countries" [value]="country.name"
+                                                [disabled]="isCountryDisabled(country.name)">
+                                                {{ country.name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1 me-2">
+                                                <label class="form-label" for="shippingPrice-{{i}}">Shipping
+                                                    Price</label>
+                                                <input formControlName="shippingPrice" type="number"
+                                                    class="form-control" id="shippingPrice-{{i}}"
+                                                    placeholder="Enter price" />
+                                            </div>
+                                            <button type="button" class="btn btn-danger btn-sm" style="margin-top: 2rem;"
+                                                (click)="removeShippingDetail(i)">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary mt-2 btn-sm" (click)="addShippingDetail()">
+                                Add Country
+                            </button>
+                        </div>
+
+
+
+
+
+
+                        <!-- collect -->
+                        <div class="form-group row pb-4 align-items-center">
+                            <label for="exampleInputmaterial1" class="col-sm-3 col-form-label">Collect<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <div class="form-check form-check-inline pe-5">
+                                    <input type="radio" formControlName="collect" value="true" id="collectYes">
+                                    <label for="collectYes">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" formControlName="collect" value="false" id="collectNo">
+                                    <label for="collectNo">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 class="m-0 pb-4">Item Location<span style="color: red;">*</span></h6>
+                        <div class="form-group row pb-4">
+                            <label for="exampleInputauctionname1" class="col-sm-3 col-form-label">Address</label>
+                            <div class="col-sm-9">
+                                <input formControlName="address" type="text" class="form-control"
+                                    id="exampleInputauctionname1" aria-describedby="auctionnameHelp" placeholder="  ">
+                            </div>
+                        </div>
+
+                        <div class="form-group row pb-4">
+                            <label for="exampleInputauctionname1" class="col-sm-3 col-form-label">Town</label>
+                            <div class="col-sm-3">
+                                <input formControlName="town" type="text" class="form-control"
+                                    id="exampleInputauctionname1" aria-describedby="auctionnameHelp" placeholder="  ">
+                            </div>
+                            <label for="exampleInputauctionname1" class="col-sm-3 col-form-label ps-5">Country</label>
+                            <div class="col-sm-3">
+                                <input formControlName="country" type="text" class="form-control"
+                                    id="exampleInputauctionname1" aria-describedby="auctionnameHelp" placeholder="  ">
+                            </div>
+                        </div>
+
+
+                        <!-- Auction Form -->
+
+                        <div class="form-group row pb-4">
+                            <label for="exampleInputauctiontype1" class="col-sm-3 col-form-label">Upload Images<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <input (change)="onFileChanged($event)" multiple type="file" class="form-control"
+                                    id="exampleInputauctiontype1" placeholder="  ">
+                                <small id="emailHelp" class="form-text text-muted">Upload Img/Doc <span
+                                        style="color: red;">Max
+                                        Size 2MB </span> </small>
+                            </div>
+                        </div>
+                        <div class="form-group row pb-4">
+                            <label for="exampleInputauctiontype2" class="col-sm-3 col-form-label">Upload Essential
+                                Documents<span class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <input (change)="onDocChanged($event)" multiple type="file" class="form-control"
+                                    id="exampleInputauctiontype2" placeholder="  ">
+                                <small id="emailHelp2" class="form-text text-muted">Upload Img/Doc <span
+                                        style="color: red;">Max
+                                        Size 2MB </span> </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pb-4">
+                            <label for="exampleInputauctionname111" class="col-sm-3 col-form-label">Add Comment</label>
+                            <div class="col-sm-9 position-relative">
+                                <input formControlName="comment" type="text" class="form-control" id="exampleInputauctionname111"
+                                    aria-describedby="auctionnameHelp" placeholder="  ">
+                               
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button (click)="submit()" type="submit" class="btn btn-secondary px-4" data-bs-dismiss="modal">Save
+                        Details</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+      
+
+    <!-- end items-section -->
+</div>
+<!-- end Featured Lots -->

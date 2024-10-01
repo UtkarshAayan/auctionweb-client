@@ -1,0 +1,20 @@
+.container{
+    margin: 0px;
+    padding: 30px;
+    border: 0px;
+    margin: 0px auto;
+    max-width: 85%;
+    width: 100%;
+    background: #f8f9fa;
+}
+
+.card {
+    border-radius: 5px;
+    &-body {
+      text-align: center;
+    }
+  }
+  .card-img-top {
+    border-top-left-radius: 0; 
+     border-top-right-radius: 0;
+}

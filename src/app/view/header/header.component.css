@@ -1,0 +1,25 @@
+
+     /* Hide the dropdown menu by default */
+.category-menu {
+  display: none;
+}
+
+/* Show the dropdown menu when hovering over the category */
+.nav-item:hover .category-menu {
+  display: block;
+}
+
+/* Optional: Style the dropdown menu */
+/* Stylish hover effect for subcategories */
+.dropdown-menu .dropdown-item {
+  transition: color 0.3s, background-color 0.3s, padding-left 0.3s;
+  border-radius: 4px; /* Rounded corners for a softer look */
+}
+
+.dropdown-menu .dropdown-item:hover {
+  color: #0056b3; /* Darker blue for text on hover */
+  background-color: #e9ecef; /* Light grey background for a soft highlight */
+  padding-left: 1rem; /* Indentation to give a visual effect */
+  font-weight: bold; /* Makes the text bold on hover */
+}
+

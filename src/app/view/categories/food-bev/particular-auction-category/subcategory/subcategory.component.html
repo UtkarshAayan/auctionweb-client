@@ -1,0 +1,105 @@
+
+
+
+
+<div class="container"  *ngIf="!isLoading">
+    <h2>Products in {{ subcategoryName }}</h2>
+  </div>
+
+
+  <div class="container my-4"  *ngIf="!isLoading">
+    <div id="carouselExampleAutoplaying" class="carousel carousel-dark slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button *ngFor="let image of bannerImages; let i = index"
+                type="button"
+                [attr.data-bs-target]="'#carouselExampleAutoplaying'"
+                [attr.data-bs-slide-to]="i"
+                [class.active]="i === 0"
+                [attr.aria-current]="i === 0 ? 'true' : null"
+                [attr.aria-label]="'Slide ' + (i + 1)">
+        </button>
+      </div>
+      <!-- carousel section start -->
+      <div class="carousel-inner">
+        <div *ngFor="let image of bannerImages; let i = index"
+             class="carousel-item"
+             [class.active]="i === 0">
+          <img [src]="image" class="d-block w-100" alt="...">
+          <div class="carousel-overlay"></div>
+          <div class="carousel-caption">
+            <h5>{{ 'Slide ' + (i + 1) + ' label' }}</h5>
+            <p>{{ 'Some representative placeholder content for slide ' + (i + 1) + '.' }}</p>
+          </div>
+        </div>
+      </div>
+      <!-- carousel section end -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+              data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+              data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isLoading">
+    <app-loader></app-loader>  <!-- Loader shown when isLoading is true -->
+  </div>
+  
+  <div class="container my-4"  *ngIf="!isLoading">
+    <div class="d-flex justify-content-end align-items-center mb-4">
+      <input [(ngModel)]="searchQuery" placeholder="Search products..." class="form-control me-2" style="max-width: 300px;" />
+      <button (click)="searchProducts()" class="btn btn-primary">Search</button>
+    </div>
+    <div class="row pt-3 pe-5 ps-5">
+      <!-- Check if products array is defined and has items -->
+      <div *ngIf="products?.length === 0" class="text-center">
+        <p>No products available at the moment.</p>
+      </div>
+    
+      <!-- Loop through products if available -->
+      <div class="col-sm-3 mb-3" *ngFor="let product of products">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            {{ product.lotNumber }}
+          </div>
+          <div class="card-img-container text-center" *ngIf="product.uploadDocuments && product.uploadDocuments.length > 0">
+            <img [src]="product.uploadDocuments[0].url" class="img-fluid" alt="Product Image" />
+          </div>
+          <div class="card-body">
+            <div class="card-header text-center">
+              <strong>{{ product.productName }}</strong>
+            </div>
+            <div class="card-header">
+              <strong>Category:</strong> {{ product.category }}
+            </div>
+            <div class="card-header">
+              <strong>Start Date:</strong> {{ product.startDate | date:'yyyy-MM-dd' }}
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary btn-sm" (click)="getproductById(product._id)">
+            See auctions
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" (click)="goToPage(currentPage - 1)">Previous</a>
+        </li>
+        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index">
+          <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a class="page-link" (click)="goToPage(currentPage + 1)">Next</a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>

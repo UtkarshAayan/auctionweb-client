@@ -1,0 +1,37 @@
+/* Tooltip container */
+
+  
+  /* Tooltip text */
+  .tooltip-text {
+    display: none;
+    width: 200px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%; /* Position the tooltip above the input */
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 10px; /* Space between the input and tooltip */
+  }
+  
+  /* Tooltip arrow */
+  .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+  }
+  
+  /* Show the tooltip text when hovering over the input */
+  .form-group:hover .tooltip-text {
+    display: block;
+  }
+  

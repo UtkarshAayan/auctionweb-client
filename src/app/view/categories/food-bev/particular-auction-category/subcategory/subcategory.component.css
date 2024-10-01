@@ -1,0 +1,220 @@
+.card {
+    border-radius: 5px;
+    body {
+      text-align: center;
+    }
+  }
+  .card-img-top {
+    border-top-left-radius: 0; 
+     border-top-right-radius: 0;
+  }
+  
+  .container{
+    margin: 0px;
+    padding: 30px;
+    border: 0px;
+    margin: 0px auto;
+    max-width: 85%;
+    width: 100%;
+    background: #f8f9fa;
+  }
+  
+  /* maine */
+  .carousel-item {
+  height: 300px; /* Set your desired height */
+  position: relative;
+  overflow: hidden; /* Ensure the image does not overflow the container */
+  }
+  .carousel-item img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* Makes sure the image covers the container */
+  }
+  .carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Black background with 50% opacity */
+  color: white;
+  padding: 10px;
+  }
+  .carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Black overlay with 40% opacity */
+  }
+  
+  
+  #popular-categories {
+  width: 163px;
+  height: 21px;
+  background-color: rgba(255, 255, 255, 0);
+  box-sizing: border-box;
+  font-family: "Arial Bold", "Arial", sans-serif;
+  font-weight: 700;
+  color: #333333;
+  text-align: left;
+  line-height: normal;
+  }
+  
+  #placeholder {
+  width: 199px;
+  height: 170px;
+  padding: 2px 2px 2px 2px;
+  border: 1px solid #797979;
+  background-color: #f2f2f2;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  }
+  
+  #place-imgs {
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  }
+  
+  #restaurant-bar-equ {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 199px;
+  height: 44px;
+  font-size: 13px;
+  padding: 2px 2px 2px 2px;
+  border: 1px solid #797979;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  font-family: "Arial Bold", "Arial", sans-serif;
+  font-weight: 700;
+  color: #333333;
+  text-align: center;
+  line-height: normal;
+  }
+  
+  #placeholder-1 {
+  width: 249px;
+  height: 261px;
+  padding: 2px 2px 2px 2px;
+  border: 1px solid #797979;
+  
+  }
+  
+  #fa-gill-ltd {
+  width: 95px;
+  height: 21px;
+  font-family: "Arial Bold", "Arial", sans-serif;
+  font-weight: 700;
+  color: #333333;
+  line-height: normal;
+  }
+  
+  #hilco-valuation-serv {
+  width: 190px;
+  height: 21px;
+  background-color: rgba(255, 255, 255, 0);
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+  color: #333333;
+  text-align: left;
+  line-height: normal;
+  }
+  select {
+  padding: 1px 35px 1px 10px;
+  border: 1px solid #797979;
+  border-radius: 3px;
+  }
+  
+  #view-auction {   
+  font-size: 13px;
+  border-radius: 5px;
+  border: 1px solid #797979;
+  background-color: #00ffff;  
+  text-align: center;    
+  }
+  #int-sec {
+  width: 60%;
+  }
+  .rec-sec {
+  width: 100%;
+  padding: 30px;
+  border: 0px;
+  margin: 0px auto;
+  }
+  
+  
+  .card-img-container {
+  height: 200px; /* Set your desired fixed height */
+  overflow: hidden; /* Ensure any overflow is hidden */
+  }
+  .card-img-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* Ensures the image covers the container */
+  }
+  .card {
+  height: 100%; /* Make sure the card takes up full height for equal sizing */
+  display: flex;
+  flex-direction: column;
+  }
+  .card-body {
+  flex: 1; /* Ensure card body takes remaining space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  }
+  
+  .spaced-hr {
+  margin-bottom: 20px; /* Adjust this value as needed */
+  }
+  /* maine */
+  .carousel-item {
+  height: 300px; /* Set your desired height */
+  position: relative;
+  overflow: hidden; /* Ensure the image does not overflow the container */
+  }
+  .carousel-item img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* Makes sure the image covers the container */
+  }
+  .carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Black background with 50% opacity */
+  color: white;
+  padding: 10px;
+  }
+  .carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Black overlay with 40% opacity */
+  }
+  
+  .card-header {
+    position: relative;
+  }
+  
+  .card-header i.bi-heart {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .search-bar input {
+    max-width: 300px;
+  }
+  

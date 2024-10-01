@@ -1,0 +1,211 @@
+<div class="card" style="
+margin: 0px;
+border: 0px;
+margin: 0px auto;
+max-width: 85%;
+width: 100%;
+
+
+">
+  <div class="row">
+    <div class="col-sm-8 h4">Profile</div>
+
+  </div>
+</div>
+
+<div class="container mt-2" style="
+max-width: 85%;
+width: 100%;
+padding: 30px;
+border: 0px;
+margin: 0px auto;
+margin-top: 25px;
+">
+
+<div class="card mb-5" style="border-radius: 15px; margin: 0 auto;" *ngIf="!isLoading">
+  <div class="card-body p-4" *ngIf="userData2">
+    <h3 class="mb-3">{{userData2.username}}</h3>
+    <form [formGroup]="profileForm">
+      <div class="row mb-3">
+        <div class="col">
+          <label for="inputName" class="form-label">Name</label>
+          <input formControlName="name" type="text" class="form-control" id="inputName">
+        </div>
+        <div class="col">
+          <label for="inputUserName" class="form-label">Username</label>
+          <input formControlName="username" type="text" class="form-control" id="inputUserName">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <label for="inputEmail" class="form-label">Email</label>
+          <input formControlName="email" type="email" class="form-control" id="inputEmail">
+        </div>
+        <div class="col">
+          <label for="inputPassword" class="form-label">Password</label>
+          <div class="input-group">
+            <input
+              formControlName="password"
+              [type]="passwordFieldType"
+              class="form-control"
+              id="inputPassword"
+            >
+            <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
+              <i class="fa" [ngClass]="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 text-end">
+        <button type="button" class="btn btn-primary btn-sm me-2" (click)="updateUser(userData1.data._id)" >Update</button>
+        <button type="button" class="btn btn-danger btn-sm"  (click)="logout()" >Logout</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ul class="nav nav-tabs mt-5" id="profileTabs" role="tablist">
+  <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button"
+          role="tab" aria-controls="orders" aria-selected="false">Orders</button>
+  </li>
+  <li class="nav-item" role="presentation">
+      <button class="nav-link" id="bids-tab" data-bs-toggle="tab" data-bs-target="#bids" type="button" role="tab"
+          aria-controls="bids" aria-selected="true">Recent Bids</button>
+  </li>
+</ul>
+
+
+
+  <div class="tab-content mt-3" id="profileTabsContent">
+    <!-- Orders Tab -->
+    <div class="tab-pane fade show active" id="orders" role="tabpanel" aria-labelledby="orders-tab" *ngIf="!isLoading">
+      <!-- Display orders here -->
+     
+        <div class="card mb-2">
+          <div class="card-body">
+            <table class="table table-bordered table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Order Date</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let order of win">
+                  <td>
+                    <div class="d-flex align-items-center"
+                      *ngIf="order.uploadDocuments && order.uploadDocuments.length > 0">
+                      <img [src]="order.uploadDocuments[0].url" 
+                      alt="" 
+                      width="45" 
+                      height="45" 
+                      class="rounded-circle" 
+                      style="object-fit: cover;" 
+                      loading="lazy" />
+                 
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1">{{order.productName}}</p>
+                      </div>
+                    </div>
+                  </td>
+
+
+                  <td>
+                    <span>Yes</span>
+                    <ng-template #pending>Pending</ng-template>
+                  </td>
+                  <td>
+                    {{order.status}}
+                  </td>
+                  <td class="text-center">
+                        <button type="button" (click)="getOrderByProductId(order._id)" class="btn btn-primary btn-sm"><i
+                          class="bi bi-eye"></i></button> 
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      
+    </div>
+    <!-- Recent Bids Tab -->
+    <div class="tab-pane fade" id="bids" role="tabpanel" aria-labelledby="bids-tab" *ngIf="!isLoading">
+      <!-- Display recent bid products here -->
+      <div class="card mb-2">
+        <div class="card-body">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Bid Date</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let bid of history">
+                <td>
+                  <div class="d-flex align-items-center"
+                    *ngIf="bid.uploadDocuments && bid.uploadDocuments.length > 0">
+                    <img [src]="bid.uploadDocuments[0].url" 
+                    alt="" 
+                    width="45" 
+                    height="45" 
+                    class="rounded-circle" 
+                    style="object-fit: cover;" 
+                    loading="lazy" />
+               
+                    <div class="ms-3">
+                      <p class="fw-bold mb-1">{{bid.productName}}</p>
+                    </div>
+                  </div>
+                </td>
+
+
+                <td>
+                  <span>Yes</span>
+                  <ng-template #pending>Pending</ng-template>
+                </td>
+                <td>
+                  {{bid.status}}
+                </td>
+                <td class="text-center">
+                  <button type="button" (click)="getproductById(bid._id)" class="btn btn-primary btn-sm"><i
+                      class="bi bi-eye"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Logout</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Clicking on Logout you will be logged out of the portal. Do you want to logout?
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLoading">
+  <app-loader></app-loader>  <!-- Loader shown when isLoading is true -->
+</div>
