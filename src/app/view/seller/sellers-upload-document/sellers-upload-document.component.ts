@@ -261,7 +261,7 @@ export class SellersUploadDocumentComponent implements OnInit {
     this.isLoading = true;  // Show loader
     this.sellerProductService.createSellerProductService(formData).subscribe({
       next: () => {
-        this.toastService.show('Success', 'Form submitted successfully!');
+        this.toastService.show('Success', 'Product created successfully!');
         this.router.navigate(['auction']);
         this.productForm.reset();
         this.selectedImages = [];
