@@ -5,10 +5,13 @@ import { CommonModule } from '@angular/common';
 import { confirmPasswordValidator } from '../../../validators/confirm-password';
 import { AuthService } from '../../../services/auth.service';
 import { HttpClientModule,HttpClient  } from '@angular/common/http';
+import { ToastService } from "../../../services/toast.service";
+import { LoaderComponent } from "../../../view/loader/loader.component";
+
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [RouterLink,CommonModule,ReactiveFormsModule,HttpClientModule],
+  imports: [RouterLink,CommonModule,ReactiveFormsModule,HttpClientModule,LoaderComponent],
   providers: [AuthService],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css'
@@ -17,8 +20,11 @@ export class ResetPasswordComponent {
   fb = inject(FormBuilder);
   router = inject(Router);
   activatedRoute = inject(ActivatedRoute);
+  toastService = inject(ToastService);
   resetForm!: FormGroup;
   token!: string;
+  isLoading = false;
+  submitted = false;
   authService = inject(AuthService);
   ngOnInit(): void {
     this.resetForm = this.fb.group(
@@ -37,7 +43,9 @@ export class ResetPasswordComponent {
   }
 
   submit() {
-    console.log(this.resetForm.value)
+    this.submitted = true;
+    this.isLoading = true;  
+    
     let resetObj = {
       token: this.token,
       password: this.resetForm.value.password
@@ -46,12 +54,14 @@ export class ResetPasswordComponent {
       .subscribe(
         {
           next: (res) => {
-            alert(res.message);
+            this.isLoading = false; 
+            this.toastService.show('Success', 'Reset password successfully!');
             this.resetForm.reset();
             this.router.navigate(['login']);
           },
           error: (err) => {
-            alert(err.error.message);
+            this.toastService.show('Failed', 'Failed!');
+            this.isLoading = false; 
           }
         })
   }
