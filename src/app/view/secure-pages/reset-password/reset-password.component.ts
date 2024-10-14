@@ -38,7 +38,7 @@ export class ResetPasswordComponent {
 
     this.activatedRoute.params.subscribe(val => {
       this.token = val['token'];
-      console.log(this.token);
+   
     });
   }
 

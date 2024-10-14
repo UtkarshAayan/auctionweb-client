@@ -37,7 +37,7 @@ export class BiddersComponent implements OnInit, OnDestroy {
   getProductById(id: any) {
     this.probidService.getProductById(id).subscribe(data => {
       this.editData = data;
-      console.log(this.editData)
+   
       this.startTimer();
     });
   }

@@ -114,7 +114,6 @@ export class AuctionComponent implements OnInit {
     this.loadBannerImages();
 
     this.userId = localStorage.getItem('user_id');
-    console.log(this.userId)
     this.getproductByUser();
   
     if (this.proId) {
@@ -136,9 +135,6 @@ export class AuctionComponent implements OnInit {
       .subscribe((res) => {
         this.userData = res
         this.dataArray = this.userData.data
-        console.log(this.userData)
-        //this.userArray = this.userData.data
-        console.log(this.dataArray)
       })
   }
 
@@ -216,7 +212,6 @@ export class AuctionComponent implements OnInit {
   }
 
   addDynamicField() {
-    console.log('Adding dynamic field');
     const dynamicFieldForm = this.fb.group({
       key: ['', Validators.required],
       value: ['', Validators.required]
@@ -225,8 +220,7 @@ export class AuctionComponent implements OnInit {
   }
 
   removeDynamicField(index: number) {
-    console.log(`Removing dynamic field at index ${index}`);
-    this.dynamicFields.removeAt(index);
+       this.dynamicFields.removeAt(index);
   }
 
 
@@ -238,7 +232,7 @@ export class AuctionComponent implements OnInit {
         this.proId = this.editData.data._id;
        // localStorage.setItem("product_id", this.editData.data._id);
         this.dataArray = this.editData.data
-        console.log(this.dataArray);
+        
         this.proForm.patchValue({
           productName: this.editData.data.productName,
           category: this.editData.data.category,
@@ -296,7 +290,7 @@ export class AuctionComponent implements OnInit {
     this.sellerProductService.getVerifiedProductByUserService(this.userId, this.searchQuery, this.currentPage)
       .subscribe({
         next: (res) => {
-          console.log('API Response:', res); // Check the API response
+        
           this.editData2 = res;
           this.sellerpro = this.editData2.data.products.filter((product: any) => product.proVerifyByAdmin === true);
           this.totalPages = this.sellerpro.length ? this.editData2.data.totalPages : 0;
@@ -454,7 +448,7 @@ export class AuctionComponent implements OnInit {
           this.toastService.show('Success', 'Auction updated successfully!');
           this.selectedImages = [];
           this.selectedDoc = [];
-          console.log(this.proForm.value)
+         
           this.resetForm();
           
         },
@@ -480,13 +474,12 @@ export class AuctionComponent implements OnInit {
     this.dropDownService.getAllDropDownService()
       .subscribe((res) => {
         this.dropData = res
-        console.log(this.dropData)
+       
         this.dropArray = this.dropData.data[0].category
         this.dataColor = this.dropData.data[0].color
         this.dataCondition = this.dropData.data[0].productCondition
         this.dataLot = this.dropData.data[0].lotNumber
-        console.log(this.dropArray)
-        //this.userArray = this.userData.data
+      
 
       })
   }
@@ -495,7 +488,7 @@ export class AuctionComponent implements OnInit {
     this.adminSettingsService.getBannerImages().subscribe(
       (response) => {
         this.bannerImages = response.bannerImages;
-        console.log(this.bannerImages)
+       
       },
       (error) => {
         console.log("err");

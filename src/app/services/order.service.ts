@@ -37,4 +37,8 @@ export class OrderService {
   }
 
 
+  getOrderHistoryList(buyerId: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/orders/orderhistory/${buyerId}`);
+  }
+
 }

@@ -26,7 +26,6 @@ export class AddCardsComponent {
     this.stripeService.getAllTransactions().subscribe(
       (data) => {
         this.transactions = data;
-        console.log('Transactions:', this.transactions);
       },
       (error) => {
         console.error('Error fetching transactions:', error);
@@ -36,7 +35,6 @@ export class AddCardsComponent {
   async ngAfterViewInit() {
     this.stripe = await this.stripeService.loadStripe(); // Load Stripe
     if (!this.stripe) {
-      console.error('Stripe.js has not loaded yet.');
       return;
     }
 
@@ -55,7 +53,6 @@ export class AddCardsComponent {
     try {
       // Create payment intent
       const { clientSecret } = await this.stripeService.createPaymentIntent(this.amount).toPromise();
-      console.log('Client Secret:', clientSecret); // Log clientSecret for debugging
   
       // Confirm card payment
       const { error, paymentIntent } = await this.stripe!.confirmCardPayment(clientSecret, {
@@ -73,7 +70,6 @@ export class AddCardsComponent {
           cardErrorsDiv.textContent = error.message || 'An error occurred during payment.';
         }
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-        console.log('Payment successful!', paymentIntent);
         alert('Payment successful!');
         this.router.navigate(['/shipping-details']);
       } else {

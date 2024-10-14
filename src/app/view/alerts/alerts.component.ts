@@ -50,7 +50,7 @@ export class AlertsComponent {
       next: (response) => {
         this.isLoading = false;
         this.notifications = response.data;
-        console.log(this.notifications)
+       
         // this.notificationsEnabled = this.notifications
         this.applyFilter();  // Apply the filter after loading notifications
       },
@@ -66,7 +66,6 @@ export class AlertsComponent {
         this.editData = data
         this.editData = this.editData.data
         this.notificationsEnabled = this.editData.notificationsEnabled
-        console.log("userData",this.editData);
       })
   }
 

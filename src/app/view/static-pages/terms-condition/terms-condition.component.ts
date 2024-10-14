@@ -19,12 +19,13 @@ export class TermsConditionComponent {
     this.getTermsContents();
  }
  getTermsContents(): void {
-  this.adminSettingsService.getPrivacy().subscribe({
+  this.adminSettingsService.getTerms().subscribe({
     next: (data) => {
       this.termsContents = data;
       this.termsContents =  this.termsContents.data;
-      
       console.log(this.termsContents)
+      
+    
     },
     error: (err) => {
       console.log(err);

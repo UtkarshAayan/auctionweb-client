@@ -42,7 +42,6 @@ export class InAppNotificationService {
 
   getUnreadNotifications(userId: string): Observable<any> {
     const url = `${apiUrls.inAppNotificationAPI}/notifications/${userId}?filter=unread`;
-    console.log('Fetching notifications from URL:', url); // Debug log
     return this.http.get<any>(url);
   }
 }

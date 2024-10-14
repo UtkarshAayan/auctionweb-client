@@ -58,7 +58,7 @@ export class HomeComponent {
           this.isLoading = false;
           this.products = res;
           this.filteredProducts = this.products.data;
-          console.log(this.products);
+
         },
         error: (err) => {
           console.log(err);
@@ -88,7 +88,7 @@ export class HomeComponent {
         next: (res) => {
           this.isLoading = false;
           this.liveProduct = res;
-          console.log(this.liveProduct)
+          
           this.liveProducts = this.liveProduct.data;
         },
         error: (err) => {
@@ -105,7 +105,6 @@ export class HomeComponent {
         next: (res) => {
           this.isLoading = false;
           this.futureProduct = res;
-          console.log(this.futureProduct)
           this.futureProducts = this.futureProduct.data;
         },
         error: (err) => {
@@ -139,7 +138,7 @@ export class HomeComponent {
       (response) => {
         this.isLoading = false;
         this.bannerImages = response.bannerImages;
-        console.log(this.bannerImages)
+      
       },
       (error) => {
         console.log("err");

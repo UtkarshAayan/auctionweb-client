@@ -24,11 +24,15 @@ export class PrivacyPolicyComponent {
       this.privacyContents = data;
       this.privacyContents =  this.privacyContents.data;
       
-      console.log(this.privacyContents)
+    
     },
     error: (err) => {
       console.log(err);
     }
   });
 }
+formatContent(content: string): string {
+  return content.replace(/\n/g, '<br>');
+}
+
 }

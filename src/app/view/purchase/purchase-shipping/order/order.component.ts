@@ -54,7 +54,7 @@ export class OrderComponent {
         this.isLoading = false;
         this.editData = orderData;
         this.dataArray = this.editData.data;
-        console.log(this.dataArray)
+       
         this.adminData = adminData;
         this.adminArray = this.adminData.data;
         this.calculateFinalPrice();

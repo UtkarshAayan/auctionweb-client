@@ -86,7 +86,7 @@ export class SubcategoryComponent {
       (response) => {
         this.isLoading = false;
         this.bannerImages = response.bannerImages;
-        console.log(this.bannerImages)
+      
       },
       (error) => {
         console.log("err");

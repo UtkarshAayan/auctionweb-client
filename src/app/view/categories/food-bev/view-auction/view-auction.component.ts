@@ -22,14 +22,14 @@ export class ViewAuctionComponent {
   userData2: any;
   ngOnInit(): void {
     const productId = localStorage.getItem('product_id');
-    console.log(productId)
+   
     this.getproductById(productId)
   }
   getproductById(id:any){
     this.sellerProductService.getProductByIdService(id)
     .subscribe(data=>{
       this.editData = data
-      console.log(this.editData);
+      
     })
   }
 

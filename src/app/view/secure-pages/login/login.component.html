@@ -18,11 +18,9 @@
     </div>
   </div>
 </nav>
-<div *ngIf="isLoading">
-  <app-loader></app-loader>  <!-- Loader shown when isLoading is true -->
-</div>
+
 <!-- Registration 1 - Bootstrap Brain Component -->
-<div class="bg-light py-3 py-5 md-5" *ngIf="!isLoading">
+<div class="bg-light py-3 py-5 md-5">
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col-12 col-md-11 col-lg-8 col-xl-7 col-xxl-6">
@@ -68,7 +66,7 @@
                   Remember me
                 </label>
               </div> 
-              <div>
+              <!-- <div>
                 <re-captcha
                   (resolved)="resolved($event)"
                   siteKey="6LeHRDsfAAAAAOkNj6VcGBU8jcX1qjiMqV_jhXMf"
@@ -77,10 +75,10 @@
                 <div *ngIf="loginForm.controls['recaptcha'].invalid && loginForm.controls['recaptcha'].touched">
                   <small class="text-danger">Captcha is required</small>
                 </div>
-              </div>
+              </div> -->
               <div class="col-12 mt-4">
                 <div class="d-grid">
-                  <button class="btn btn-lg text-light" [disabled]="isLoading" type="submit" style="background-color: #1B3C73 !important;">Login</button>
+                  <button class="btn btn-lg text-light" type="submit" style="background-color: #1B3C73 !important;">Login</button>
                 </div>
               </div>
             </div>

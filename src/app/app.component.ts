@@ -25,9 +25,7 @@ export class AppComponent {
   isadmin=false;
 
   constructor(private router: Router) {
-// const role= localStorage.setItem("roles","admin")
 
-    // console.log(role)
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         if (val.url == '/login' || val.url == '/signup' || val.url == '/forget-password' || val.url == '/reset-password/:token' || val.url == '/how-to-sell' || val.url == '/how-to-buy' || val.url == '/privacy-policy' || val.url == '/aboutus' || val.url == '/terms-condition') {

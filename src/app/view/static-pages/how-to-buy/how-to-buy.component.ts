@@ -22,11 +22,16 @@ export class HowToBuyComponent {
     next: (data) => {
       this.buyContents = data;
       this.buyContents =this.buyContents.data
-      console.log(this.buyContents)
+    
     },
     error: (err) => {
       console.log(err);
     }
   });
 }
+
+formatContent(content: string): string {
+  return content.replace(/\n/g, '<br>');
+}
+
 }

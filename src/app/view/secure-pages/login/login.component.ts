@@ -8,13 +8,12 @@ import { AuthService } from '../../../services/auth.service';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { CategoryService } from "../../../services/category.service";
 import { ToastService } from "../../../services/toast.service";
-import { LoaderComponent } from "../../../view/loader/loader.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [RouterLink, CommonModule, ReactiveFormsModule, HttpClientModule, RecaptchaModule,
-    RecaptchaFormsModule,FormsModule,LoaderComponent],
+    RecaptchaFormsModule,FormsModule],
   providers: [AuthService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -27,15 +26,14 @@ export class LoginComponent {
   loginForm!: FormGroup;
   passwordFieldType: string = 'password';
   toastService = inject(ToastService);
-  isLoading = false;
-  submitted = false;
+
 
   
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.required],
-      recaptcha: [null, Validators.required],  // Ensuring recaptcha is mandatory
+      //recaptcha: [null, Validators.required],  
       rememberMe: [false, Validators.requiredTrue]  // Making rememberMe checkbox mandatory
     });
   }
@@ -44,24 +42,23 @@ export class LoginComponent {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 
-  resolved(captchaResponse: any) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`);
-  }
+  // resolved(captchaResponse: any) {
+  //   console.log(`Resolved captcha with response: ${captchaResponse}`);
+  // }
 
   submit() {
-    this.submitted = true;
-    this.isLoading = true;  
+ 
     
     if (this.loginForm.invalid) {
-      this.toastService.show('Failed', 'Please fill in all required fields including the CAPTCHA and Remember Me checkbox');
+      this.toastService.show('Failed', 'Please fill in all required fields including the remember Me checkbox');
       return;
     }
     this.authService.loginService(this.loginForm.value)
       .subscribe({
         next: (res) => {
-          this.isLoading = false; 
+        
           this.toastService.show('Success', 'Login successfully!');
-          console.log(res.data.roles);
+         
 
           sessionStorage.clear();  // Always clear sessionStorage
 
@@ -87,7 +84,7 @@ export class LoginComponent {
         },
         error: (err) => {
           console.log(err);
-          this.isLoading = false; 
+         
         }
       });
   }

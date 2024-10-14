@@ -20,20 +20,18 @@ export class AuthService {
   isLoggedIn() {
     //return false;
    this.loggedIn.next(true);
-    console.log(this.loggedIn)
+
     return this.getToken() !== null;
   }
 
 
   loginService(loginObj: any): Observable<any> {
     this.loggedIn.next(true);
-    console.log(this.loggedIn + " logged in");
     return this.http.post<any>(`${apiUrls.authServiceApi}login`, loginObj);
   }
   logout() {
     localStorage.clear();
     //this.islogin = false;
-    console.log("logout" + this.loggedIn)
     this.loggedIn.next(false);
     this.router.navigate(['login']);
   }

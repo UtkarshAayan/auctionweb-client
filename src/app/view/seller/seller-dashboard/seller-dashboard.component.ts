@@ -126,13 +126,13 @@ export class SellerDashboardComponent {
       password: ['', Validators.required],
     })
     this.userId = localStorage.getItem('user_id');
-    console.log(this.userId)
+ 
     if (this.userId) {
       this.usersService.getUserByIdService(this.userId)
         .subscribe(data => {
           this.userData1 = data
           this.userData2 = this.userData1.data
-          console.log(this.userData2);
+        
         })
     }
 
@@ -172,13 +172,11 @@ export class SellerDashboardComponent {
     this.dropDownService.getAllDropDownService()
       .subscribe((res) => {
         this.dropData = res
-        console.log(this.dropData)
+
         this.dropArray = this.dropData.data[0].category
         this.dataColor = this.dropData.data[0].color
         this.dataCondition = this.dropData.data[0].productCondition
         this.dataLot = this.dropData.data[0].lotNumber
-        console.log(this.dropArray)
-        console.log("hi" + this.dataColor)
 
       })
   }
@@ -257,7 +255,6 @@ export class SellerDashboardComponent {
   }
 
   addDynamicField() {
-    console.log('Adding dynamic field');
     const dynamicFieldForm = this.fb.group({
       key: ['', Validators.required],
       value: ['', Validators.required]
@@ -266,7 +263,6 @@ export class SellerDashboardComponent {
   }
 
   removeDynamicField(index: number) {
-    console.log(`Removing dynamic field at index ${index}`);
     this.dynamicFields.removeAt(index);
   }
 
@@ -373,7 +369,7 @@ export class SellerDashboardComponent {
           this.toastService.show('Success', 'Product updated successfully!');
           this.selectedImages = [];
           this.selectedDoc = [];
-          console.log(this.proForm.value)
+       
           this.resetForm();
         },
         error: (err) => {
@@ -386,9 +382,6 @@ export class SellerDashboardComponent {
   logout() {
     this.authService.logout();
     this.router.navigate(['login']);
-    console.log("ss")
-    // localStorage.clear();
-    // this.router.navigate(['login'])
   }
 
   getproductById(id: any) {
@@ -398,7 +391,7 @@ export class SellerDashboardComponent {
         this.proId = this.editData.data._id;
         localStorage.setItem("product_id", this.editData.data._id);
         this.dataArray = this.editData.data
-        console.log(this.dataArray);
+      
         this.proForm.patchValue({
           productName: this.editData.data.productName,
           category: this.editData.data.category,
@@ -458,12 +451,10 @@ export class SellerDashboardComponent {
       .subscribe({
         next: (res) => {
           this.isLoading = false;
-          console.log('API Response:', res); // Check the API response
           this.editData2 = res;
           this.sellerpro = this.editData2.data.products;
           this.totalPages = this.editData2.data.totalPages;
           this.noProductsFound = this.sellerpro.length === 0;
-          console.log('Total Pages:', this.totalPages); // Debugging
         },
         error: (error) => {
           console.error('Error fetching products:', error);
@@ -502,7 +493,6 @@ export class SellerDashboardComponent {
       next: (data) => {
         this.isLoading = false; 
         this.editData = data;
-        console.log(this.editData);
         this.profileForm.patchValue({
           name: this.editData.data.name,
           email: this.editData.data.email,
@@ -527,8 +517,6 @@ export class SellerDashboardComponent {
     };
   
     userId = this.userData1.data._id; 
-    console.log(userId);
-    console.log(updatedUserData);
   
     this.usersService.updateUserService(updatedUserData, userId).subscribe({
       next: (updatedUser) => {
@@ -561,7 +549,7 @@ export class SellerDashboardComponent {
         this.isLoading = false;  
         this.orders = response.data.orders;
         this.totalOrders = response.data.totalOrders;
-        console.log(this.orders)
+       
         this.totalPages2 = response.data.totalPages;
       }, error => {
         console.error('Error fetching orders:', error);

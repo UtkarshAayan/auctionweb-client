@@ -51,8 +51,7 @@ export class SellersBiddersOfItemsComponent {
       uploadDocuments: ['', Validators.required],
     })
 
-    // const productId = localStorage.getItem('product_id');
-    // console.log(productId)
+
 
     this.route.paramMap.subscribe(params => {
       this.productId = params.get('id');
@@ -96,7 +95,7 @@ export class SellersBiddersOfItemsComponent {
           uploadDocuments: uploadDocuments || [],
         });
   
-        console.log(this.proForm.value);  // Log the form data for debugging
+       
       },
       error: (err) => {
         this.isLoading = false;  // Stop loading on error

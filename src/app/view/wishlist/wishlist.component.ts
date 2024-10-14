@@ -18,6 +18,7 @@ import { ToastService } from "../../services/toast.service";
 })
 export class WishlistComponent {
   wishlistService = inject(WishlistService);
+  toastService = inject(ToastService);
   editData: any;
   userId: any;
   sellerProductService = inject(SellerProductService);
@@ -38,7 +39,7 @@ export class WishlistComponent {
         next: (data) => {
           this.isLoading = false;
           this.editData = data?.data?.products || [];
-          console.log(this.editData);
+
         },
         error: (err) => {
           console.error('Error fetching wishlist:', err);
@@ -52,8 +53,9 @@ export class WishlistComponent {
     this.wishlistService.removeProductFromWishlist(this.userId, productId
     ) .subscribe({
       next: (res) => {
-        alert("Removed Successfully");
-        console.log("Removed Successfully",res); 
+
+        this.toastService.show('Success', 'Removed successfully');
+
         this.getWishlistById(this.userId);    
       },
       error: (err) => {

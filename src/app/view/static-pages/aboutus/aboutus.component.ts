@@ -22,7 +22,7 @@ export class AboutusComponent {
   this.adminSettingsService.getAbout().subscribe({
     next: (data) => {
       this.aboutContents = data?.data?.[0]; // Access the first object in the array
-      console.log(this.aboutContents);
+     
     },
     error: (err) => {
       console.log(err);
