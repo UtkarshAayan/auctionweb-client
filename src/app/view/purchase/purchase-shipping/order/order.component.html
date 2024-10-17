@@ -163,9 +163,9 @@
 
                   <hr />
 
-                  <div class="d-flex justify-content-around">
+                  <div class="d-flex justify-content-around" *ngIf="dataArray">
                       <span class="text-secondary-d1 text-105">Thank you for your business</span>
-                      <a routerLink="/add-cards" class="btn btn-info btn-bold px-4 btn mt-3 mt-lg-0">Pay Now</a>
+                      <a (click)="getorderById(dataArray._id)" class="btn btn-info btn-bold px-4 btn mt-3 mt-lg-0">Pay Now</a>
                   </div>
               </div>
           </div>

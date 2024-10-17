@@ -1,11 +1,17 @@
 <section class="terms-section">
     <div class="container">
         <h2>Terms and Conditions</h2>
-<p>Welcome to <strong>MEA Auction</strong>, operated by Souk Direct Enterprises LLC. By registering as a seller on our platform, you agree to the following terms and conditions. Please read them carefully before listing any items for sale.
+<p>Welcome to <strong>MEA Auction</strong>, operated by Souk Direct Enterprises LLC. By registering as a buyer and seller on our platform, you agree to the following terms and conditions. Please read them carefully before listing any items for sale.
 </p>
         <div *ngFor="let response of termsContents; let i = index">
             <h3 class="section-title">{{i + 1}}. {{response.title}}</h3>
-            <p>{{response.content}}</p>
+            <p [innerHTML]="formatContent(response.content)">{{response.content}}</p>
           </div>
+          <p>By registering as a buyer and seller and listing items on MEA Auction, you agree to abide by these terms and conditions. Failure to comply with these terms may result in the suspension or termination of your account or selling privileges.
+            For any questions or concerns regarding these terms, please contact our support team.
+            </p>
+            <p> <strong>Last Updated: {{termsContents[0].createdAt | date}}</strong>
+            </p>
     </div>
+ 
 </section>

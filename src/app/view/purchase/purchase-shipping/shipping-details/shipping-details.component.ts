@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shipping-details',
@@ -8,5 +9,8 @@ import { Component } from '@angular/core';
   styleUrl: './shipping-details.component.css'
 })
 export class ShippingDetailsComponent {
-
+  router = inject(Router)
+  navigateToHome() {
+    this.router.navigate(['/']);  // Adjust the route as per your app structure
+  }
 }

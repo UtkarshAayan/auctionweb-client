@@ -32,4 +32,8 @@ export class TermsConditionComponent {
     }
   });
 }
+
+formatContent(content: string): string {
+  return content.replace(/\n/g, '<br>');
+}
 }

@@ -22,6 +22,7 @@ export class OrderComponent {
   orderService = inject(OrderService);
   adminSettingsService = inject(AdminSettingsService);
   route = inject(ActivatedRoute);
+  router = inject(Router)
   editData: any;
   dataArray: any;
   adminArray: any;
@@ -58,12 +59,31 @@ export class OrderComponent {
         this.adminData = adminData;
         this.adminArray = this.adminData.data;
         this.calculateFinalPrice();
+      
       },
       error: (error) => {
         console.error('Error fetching data', error);
         this.isLoading = false;
       }
     });
+  }
+
+  getorderById(order_id: string): void {
+ 
+    this.isLoading = true;
+    this.orderService.getorderByIdService(order_id)
+      .subscribe({
+        next: (orderData) => {
+          this.isLoading = false;
+          this.editData = orderData;
+          this.dataArray = this.editData.data;
+          this.router.navigate(['/add-cards', this.editData.data._id]);
+        },
+        error: (err) => {
+          console.error('Error fetching wishlist:', err);
+          this.isLoading = false;
+        }
+      });
   }
 
   calculateFinalPrice() {
