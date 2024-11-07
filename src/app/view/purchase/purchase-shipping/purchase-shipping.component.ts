@@ -68,7 +68,7 @@ export class PurchaseShippingComponent {
    // const productId = localStorage.getItem('product_id');
     this.userId = localStorage.getItem('user_id');
     this.buyNowPrice = localStorage.getItem('buyNowPrice');
-    //console.log(this.productId)
+  
     this.route.paramMap.subscribe(params => {
       this.productId = params.get('id');
       this.getproductById1(this.productId);
@@ -162,7 +162,7 @@ export class PurchaseShippingComponent {
    // const productId = localStorage.getItem('product_id');
     const buyerId = localStorage.getItem('user_id');
     const addressId = localStorage.getItem('selectedAddressId');
-    console.log("startingprice")
+ 
     if (!this.productId || !buyerId) {
       console.error('Missing required information');
       return;
@@ -188,7 +188,7 @@ export class PurchaseShippingComponent {
     this.orderService.createOrder(orderData).subscribe({
       next: (res) => {
         this.toastService.show('Success', 'Order Summary Created successfully!');
-        console.log(res);
+       
         this.resData = res;
         this.resArray = this.resData.data;
         
@@ -221,7 +221,7 @@ export class PurchaseShippingComponent {
    // const productId = localStorage.getItem('product_id');
     const buyerId = localStorage.getItem('user_id');
     const addressId = localStorage.getItem('selectedAddressId');
-    console.log("inbuynow")
+    
     if (!this.productId || !buyerId) {
       console.error('Missing required information');
       return;
@@ -247,7 +247,7 @@ export class PurchaseShippingComponent {
     this.orderService.createOrderForBuynow(orderData).subscribe({
       next: (res) => {
         this.toastService.show('Success', 'Order Summary Created successfully!');
-        console.log(res);
+       
         this.resData = res;
         this.resArray = this.resData.data;
         
@@ -259,6 +259,7 @@ export class PurchaseShippingComponent {
         this.router.navigate(['/order',this.resArray._id]);
       },
       error: (err) => {
+        this.toastService.show('Failed', 'Shipping is not available in this country');
         console.error('Error creating order:', err);
       }
     });

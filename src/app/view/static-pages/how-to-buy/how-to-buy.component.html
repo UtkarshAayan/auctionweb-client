@@ -1,7 +1,7 @@
 <div class="container">
     <div class="header">
         <h1>How to Buy</h1>
-        <p>Your guide to successful buying on our platform</p>
+        <p>Welcome to the MEA Auction Guide! Whether you're new to auctions or an experienced participant, this guide will walk you through the essentials of buying and selling on our platform. Here, you'll find everything you need to know about how our auctions work, from bidding and listing items to finalizing a sale.</p>
     </div>
 
     <div class="faq-section">
@@ -15,10 +15,11 @@
                 </h2>
                 <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        {{ content.content }}
+                        <p [innerHTML]="formatContent(content.content)"></p>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
 </div>

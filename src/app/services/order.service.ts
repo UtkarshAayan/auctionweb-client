@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { apiUrls } from '../api.urls';
 import { Router } from '@angular/router';
@@ -36,5 +36,18 @@ export class OrderService {
     return this.http.get(`http://localhost:3000/api/orders/all/seller/${userId}`, { params });
   }
 
+
+  getOrderHistoryList(buyerId: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/orders/orderhistory/${buyerId}`);
+  }
+
+  createTransaction(transactionData: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`http://localhost:3000/api/transactions`, transactionData, { headers });
+  }
+
+  getTransactions(): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:3000/api/transactions`);
+  }
 
 }

@@ -84,7 +84,7 @@ margin-top: 25px;
      
         <div class="card mb-2">
           <div class="card-body">
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover" *ngIf="win && win.length > 0; else noOrder">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Product Name</th>
@@ -96,37 +96,25 @@ margin-top: 25px;
               <tbody>
                 <tr *ngFor="let order of win">
                   <td>
-                    <div class="d-flex align-items-center"
-                      *ngIf="order.uploadDocuments && order.uploadDocuments.length > 0">
-                      <img [src]="order.uploadDocuments[0].url" 
-                      alt="" 
-                      width="45" 
-                      height="45" 
-                      class="rounded-circle" 
-                      style="object-fit: cover;" 
-                      loading="lazy" />
-                 
-                      <div class="ms-3">
-                        <p class="fw-bold mb-1">{{order.productName}}</p>
-                      </div>
-                    </div>
+                    {{order.product.productName}}
                   </td>
 
-
                   <td>
-                    <span>Yes</span>
-                    <ng-template #pending>Pending</ng-template>
+                     {{order.orderDate  | date:'medium'}}
                   </td>
                   <td>
                     {{order.status}}
                   </td>
                   <td class="text-center">
-                        <button type="button" (click)="getOrderByProductId(order._id)" class="btn btn-primary btn-sm"><i
+                        <button type="button" (click)="getOrderbyOrderId(order._id)" class="btn btn-primary btn-sm"><i
                           class="bi bi-eye"></i></button> 
                   </td>
                 </tr>
               </tbody>
             </table>
+            <ng-template #noOrder>
+              <div class="alert alert-warning">No Orders found.</div>
+            </ng-template>
           </div>
         </div>
       
@@ -136,7 +124,7 @@ margin-top: 25px;
       <!-- Display recent bid products here -->
       <div class="card mb-2">
         <div class="card-body">
-          <table class="table table-bordered table-hover">
+          <table class="table table-bordered table-hover" *ngIf="history && history.length > 0; else noBid">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">Product Name</th>
@@ -179,6 +167,9 @@ margin-top: 25px;
               </tr>
             </tbody>
           </table>
+          <ng-template #noBid>
+            <div class="alert alert-warning">No bidding found.</div>
+          </ng-template>
         </div>
       </div>
     </div>

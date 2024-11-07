@@ -26,6 +26,7 @@ export class ParticularAuctionComponent {
   currentPage: number = 1;
   totalPages: number = 1;
   limit: number = 10;
+  toastService = inject(ToastService);
   bannerImages: string[] = [];
   isLoading = false;  // loader flag
   constructor(
@@ -79,7 +80,7 @@ export class ParticularAuctionComponent {
         next: (response) => {
           this.isLoading = false;
           this.subcategories = response?.data?.subcategories || [];
-          console.log(response);
+         
         },
         error: (err) => {
           console.error('Error loading subcategories:', err);
@@ -94,7 +95,7 @@ export class ParticularAuctionComponent {
     this.sellerProductService.getProductByIdService(id)
       .subscribe(data => {
         this.editData = data
-        console.log(this.editData);
+
         this.router.navigate(['/bid', this.editData.data._id]);
       })
   }
@@ -102,8 +103,9 @@ export class ParticularAuctionComponent {
   addProductToWishlist(productId: any) {
     this.wishlistService.addProductToWishlist(this.userId, productId).subscribe({
       next: (res) => {
-        alert("Added to Wishlist Successfully");
-        console.log("Added to Wishlist  Successfully", res);
+
+        this.toastService.show('Success', 'Added to wishlist successfully');
+
       },
       error: (err) => {
         console.log(err);
@@ -127,7 +129,7 @@ export class ParticularAuctionComponent {
       (response) => {
         this.isLoading = false;
         this.bannerImages = response.bannerImages;
-        console.log(this.bannerImages)
+
       },
       (error) => {
         console.log("err");

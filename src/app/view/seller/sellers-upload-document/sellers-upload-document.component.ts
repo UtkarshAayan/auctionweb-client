@@ -192,9 +192,6 @@ export class SellersUploadDocumentComponent implements OnInit {
       .subscribe((res) => {
         this.userData = res
         this.dataArray = this.userData.data
-        console.log(this.userData)
-        //this.userArray = this.userData.data
-        console.log(this.dataArray)
       })
   }
 
@@ -261,7 +258,7 @@ export class SellersUploadDocumentComponent implements OnInit {
     this.isLoading = true;  // Show loader
     this.sellerProductService.createSellerProductService(formData).subscribe({
       next: () => {
-        this.toastService.show('Success', 'Form submitted successfully!');
+        this.toastService.show('Success', 'Product created successfully!');
         this.router.navigate(['auction']);
         this.productForm.reset();
         this.selectedImages = [];
@@ -283,12 +280,12 @@ export class SellersUploadDocumentComponent implements OnInit {
     this.dropDownService.getAllDropDownService()
       .subscribe((res) => {
         this.dropData = res
-        console.log(this.dropData)
+       
         this.dropArray = this.dropData.data[0].category
         this.dataColor = this.dropData.data[0].color
         this.dataCondition = this.dropData.data[0].productCondition
         this.dataLot = this.dropData.data[0].lotNumber
-        console.log(this.dropArray)
+        
         //this.userArray = this.userData.data
 
       })

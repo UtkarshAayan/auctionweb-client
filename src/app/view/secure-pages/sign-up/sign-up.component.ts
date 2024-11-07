@@ -6,11 +6,13 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { ToastService } from "../../../services/toast.service";
+import { LoaderComponent } from "../../../view/loader/loader.component";
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [RouterLink, CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [RouterLink, CommonModule, ReactiveFormsModule, HttpClientModule,LoaderComponent],
   providers: [AuthService],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
@@ -21,6 +23,9 @@ export class SignUpComponent implements OnInit {
   authService = inject(AuthService);
   router = inject(Router)
   userForm!: FormGroup;
+  toastService = inject(ToastService);
+  isLoading = false;
+  submitted = false;
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
@@ -44,6 +49,8 @@ export class SignUpComponent implements OnInit {
   }
 
   submit() {
+    this.submitted = true;
+    
     if (this.userForm.invalid) {
       // If form is invalid, mark all controls as touched to display validation errors
       this.userForm.markAllAsTouched();
@@ -53,23 +60,29 @@ export class SignUpComponent implements OnInit {
     const formData = this.userForm.value;
 
     if (formData.role === 'buyer') {
+      this.isLoading = true;  
       this.authService.createBuyerService(formData).subscribe({
         next: (res) => {
-          alert("Buyer Created");
+          this.isLoading = false; 
+          this.toastService.show('Success', 'Your buyer account is created!');
           this.router.navigate(['login']);
         },
         error: (err) => {
           console.log(err);
+          this.isLoading = false; 
         }
       });
     } else if (formData.role === 'seller') {
+      this.isLoading = true; 
       this.authService.createSellerService(formData).subscribe({
         next: (res) => {
-          alert("Seller Created");
+          this.isLoading = false; 
+          this.toastService.show('Success', 'Your seller account is created!');
           this.router.navigate(['login']);
         },
         error: (err) => {
           console.log(err);
+          this.isLoading = false; 
         }
       });
     }

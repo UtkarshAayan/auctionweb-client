@@ -48,13 +48,13 @@ export class ProfileComponent {
       password: ['', Validators.required],
     })
     const userId = localStorage.getItem('user_id');
-    console.log(userId)
+   
     if (userId) {
       this.usersService.getUserByIdService(userId)
         .subscribe(data => {
           this.userData1 = data
           this.userData2 = this.userData1.data
-          console.log(this.userData2);
+        
         })
     }
     this.getUserById(userId)
@@ -76,7 +76,7 @@ export class ProfileComponent {
         next: (data) => {
           this.isLoading = false;
           this.history = data?.data || [];
-          console.log(this.history);
+        
         },
         error: (err) => {
           console.error('Error fetching buyer bid history:', err);
@@ -88,7 +88,7 @@ export class ProfileComponent {
 
   getWinnerHistory(id: any): void {
     this.isLoading = true;
-    this.buyerBidService.getWinnerHistoryProductById(id)
+    this.orderService.getOrderHistoryList(id)
       .subscribe({
         next: (data) => {
           this.isLoading = false;
@@ -117,7 +117,7 @@ export class ProfileComponent {
         next: (data) => {
           this.isLoading = false;
           this.editData = data;
-          console.log(this.editData);
+        
           this.profileForm.patchValue({
             name: this.editData?.data?.name || '',
             email: this.editData?.data?.email || '',
@@ -132,14 +132,31 @@ export class ProfileComponent {
       });
   }
   
-  getOrderByProductId(id: any): void {
+  // getOrderByProductId(id: any): void {
+  //   this.isLoading = true;
+  //   this.orderService.getorderByProductID(id)
+  //     .subscribe({
+  //       next: (data) => {
+  //         this.isLoading = false;
+  //         this.orderData = data
+  //         this.orderData = this.orderData.message
+  //         this.router.navigate(['/order', this.orderData._id]);
+  //       },
+  //       error: (err) => {
+  //         console.error('Error fetching order by product ID:', err);
+  //         this.isLoading = false;
+  //       }
+  //     });
+  // }
+
+    getOrderbyOrderId(id: any): void {
     this.isLoading = true;
-    this.orderService.getorderByProductID(id)
+    this.orderService.getorderByIdService(id)
       .subscribe({
         next: (data) => {
           this.isLoading = false;
           this.orderData = data
-          this.orderData = this.orderData.message
+          this.orderData = this.orderData.data
           this.router.navigate(['/order', this.orderData._id]);
         },
         error: (err) => {
@@ -163,7 +180,7 @@ export class ProfileComponent {
         next: (updatedUser) => {
           this.isLoading = false;
           this.toastService.show('Success', 'User updated successfully!');
-          console.log('User updated:', updatedUser);
+
           this.getUserById(userId);
         },
         error: (err) => {

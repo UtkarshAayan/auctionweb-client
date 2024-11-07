@@ -84,6 +84,10 @@ export class BidComponent implements OnInit, OnDestroy {
   }
 
   getProductById(productId: string, userId: string): void {
+    if (!this.userId) {
+      this.router.navigate(['/login']); // Redirect to login page
+      return;
+    }
     this.isLoading = true;
     this.sellerProductService.getProductByIdWithWishlistService(productId, userId)
       .subscribe({
@@ -194,7 +198,10 @@ export class BidComponent implements OnInit, OnDestroy {
 
   submit() {
 
-
+    if (!this.userId) {
+      this.router.navigate(['/login']); // Redirect to login page
+      return;
+    }
     const bid = {
       bidAmount: this.bidForm.get('bidAmount')?.value,
       productId: this.productId,
@@ -218,6 +225,10 @@ export class BidComponent implements OnInit, OnDestroy {
   //wishlisted
 
   addProductToWishlist(productId: any) {
+    if (!this.userId) {
+      this.router.navigate(['/login']); // Redirect to login page
+      return;
+    }
     this.wishlistService.addProductToWishlist(this.userId, productId).subscribe({
       next: (response) => {
         this.toastService.show('Success', 'Product added to wishlist!');
@@ -230,6 +241,10 @@ export class BidComponent implements OnInit, OnDestroy {
   }
 
   removeProductFromWishlist(productId: string) {
+    if (!this.userId) {
+      this.router.navigate(['/login']); // Redirect to login page
+      return;
+    }
     this.wishlistService.removeProductFromWishlist(this.userId, productId).subscribe({
       next: (response) => {
         this.toastService.show('Success', 'Product removed to wishlist!');

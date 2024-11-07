@@ -1,5 +1,7 @@
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Help Page</h1>
+    <h1 class="text-center mb-4">Help & Support</h1>
+    <p>Welcome to the MEA Auction Help & Support page! We're here to ensure that your experience with our platform is smooth and trouble-free. Whether you’re a buyer looking to place a bid or a seller listing an item, you’ll find answers to common questions and guidance on using our services here. If you need further assistance, our support team is always ready to help.
+    </p>
 
     <!-- FAQ Section -->
     <div class="accordion" id="faqAccordion">
@@ -11,11 +13,13 @@
             </h2>
             <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i" data-bs-parent="#faqAccordion">
                 <div class="accordion-body">
-                    {{ content.content }}
+                    <p [innerHTML]="formatContent(content.content)"></p>
                 </div>
             </div>
         </div>
     </div>
+    
+    
 
     <!-- Contact Us Form -->
     <div class="mt-5">
@@ -42,8 +46,10 @@
                         <textarea formControlName="message" class="form-control" id="message" rows="4" placeholder="Your message" required></textarea>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
+    <p class="mt-5">We are dedicated to making your experience on MEA Auction as seamless as possible. If you have any questions or need assistance, don’t hesitate to reach out. Happy buying and selling!
+    </p>
 </div>

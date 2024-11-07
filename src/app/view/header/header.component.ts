@@ -57,8 +57,7 @@ export class HeaderComponent implements OnInit {
      this.isSeller = sellerState === 'true';
     this.loadCategories();
     this.userId = localStorage.getItem('user_id');
-    console.log('User ID:', this.userId);
-
+  
   if (this.userId) {
     this.loadUnreadNotifications();
     setInterval(() => this.loadUnreadNotifications(), 60000);
@@ -92,7 +91,7 @@ export class HeaderComponent implements OnInit {
     this.adminSettingsService.getCategories().subscribe(cat => {
       this.categories = cat;
       this.categories = this.categories.data
-      console.log(this.categories)
+    
     });
   }
 }

@@ -19,11 +19,15 @@
   </div>
 </nav>
 
+<div *ngIf="isLoading">
+  <app-loader></app-loader>  <!-- Loader shown when isLoading is true -->
+</div>
+
 <!-- Registration Section -->
-<div class="bg-light py-3 py-md-5">
+<div class="bg-light py-3 py-md-5" *ngIf="!isLoading">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+      <div class="col-12 col-md-11 col-lg-8 col-xl-7 col-xxl-6">
         <div class="bg-white p-4 p-md-5 rounded shadow">
           <!-- Form Title -->
           <div class="text-center mb-4">
@@ -97,7 +101,7 @@
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+            <button type="submit" [disabled]="isLoading" class="btn text-light w-100"  style="background-color: #1B3C73;">Sign Up</button>
           </form>
 
           <!-- Already Registered -->

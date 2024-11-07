@@ -23,11 +23,16 @@ export class HowToSellComponent {
       this.sellContents = data;
       this.sellContents =  this.sellContents.data;
       
-      console.log(this.sellContents)
+     
     },
     error: (err) => {
       console.log(err);
     }
   });
 }
+formatContent(content: string): string {
+  return content.replace(/\n/g, '<br>');
+}
+
+
 }
