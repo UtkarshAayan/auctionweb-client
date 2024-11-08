@@ -11,19 +11,19 @@ export class OrderService {
   constructor(private http: HttpClient, private router: Router) { }
 
   createOrder( orderData: any): Observable<any> {
-    return this.http.post(`http://localhost:3000/api/orders`, orderData);
+    return this.http.post(`http://88.222.212.120:3000/api/orders`, orderData);
   }
 
   createOrderForBuynow( orderData: any): Observable<any> {
-    return this.http.post(`http://localhost:3000/api/orders/BuynowOrder`, orderData);
+    return this.http.post(`http://88.222.212.120:3000/api/orders/BuynowOrder`, orderData);
   }
 
   getorderByIdService(id:any){
-    return this.http.get(`http://localhost:3000/api/orders/${id}`)
+    return this.http.get(`http://88.222.212.120:3000/api/orders/${id}`)
   }
 
   getorderByProductID(id:any){
-    return this.http.get(`http://localhost:3000/api/orders/product/${id}`)
+    return this.http.get(`http://88.222.212.120:3000/api/orders/product/${id}`)
   }
 
   //orderlistfor seller
@@ -33,21 +33,21 @@ export class OrderService {
       .set('page', page.toString())
       .set('limit', limit.toString());
 
-    return this.http.get(`http://localhost:3000/api/orders/all/seller/${userId}`, { params });
+    return this.http.get(`http://88.222.212.120:3000/api/orders/all/seller/${userId}`, { params });
   }
 
 
   getOrderHistoryList(buyerId: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/orders/orderhistory/${buyerId}`);
+    return this.http.get(`http://88.222.212.120:3000/api/orders/orderhistory/${buyerId}`);
   }
 
   createTransaction(transactionData: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(`http://localhost:3000/api/transactions`, transactionData, { headers });
+    return this.http.post(`http://88.222.212.120:3000/api/transactions`, transactionData, { headers });
   }
 
   getTransactions(): Observable<any[]> {
-    return this.http.get<any[]>(`http://localhost:3000/api/transactions`);
+    return this.http.get<any[]>(`http://88.222.212.120:3000/api/transactions`);
   }
 
 }
