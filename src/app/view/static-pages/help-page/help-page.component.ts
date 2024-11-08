@@ -61,7 +61,7 @@ onSubmit() {
 }
 formatContent(content: string): string {
   // Replace 'MEA Auction' with a hyperlink
-  let updatedContent = content.replace('Password Reset ', '<a href="http://localhost/forget-password" target="_blank">Password Reset </a>');
+  let updatedContent = content.replace('Password Reset ', '<a href="http://88.222.212.120/forget-password" target="_blank">Password Reset </a>');
   
   // Replace newline characters with <br> tags for line breaks
   updatedContent = updatedContent.replace(/\n/g, '<br>');
