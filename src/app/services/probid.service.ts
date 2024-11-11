@@ -11,13 +11,13 @@ export class ProbidService {
 
   constructor(private http: HttpClient, private router: Router){}
   getProductById(productId: string): Observable<any> {
-    return this.http.get(`http://88.222.212.120:3000/api/products/${productId}`);
+    return this.http.get(`https://www.menaauctions.com/api/products/${productId}`);
   }
   placeBid(productId: string, userId: string, bidAmount: number): Observable<any> {
-    return this.http.post(`http://88.222.212.120:3000/api/bids/place`, { productId, userId, bidAmount });
+    return this.http.post(`https://www.menaauctions.com/api/bids/place`, { productId, userId, bidAmount });
   }
 
   createBidService1(bidObj: any):Observable<any> {
-    return this.http.post<any>(`http://88.222.212.120:3000/api/bids/place`, bidObj);
+    return this.http.post<any>(`https://www.menaauctions.com/api/bids/place`, bidObj);
   }
 }

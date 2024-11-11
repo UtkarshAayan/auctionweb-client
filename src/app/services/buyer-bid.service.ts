@@ -12,18 +12,18 @@ export class BuyerBidService {
   constructor(private http: HttpClient, private router: Router) { }
 
   getAllVerifiedproductService(){
-    return this.http.get(`http://88.222.212.120:3000/api/buyer/getAllBuyer/`)
+    return this.http.get(`https://www.menaauctions.com/api/buyer/getAllBuyer/`)
   }
   createBidService(bidObj: any):Observable<any> {
-    return this.http.post<any>(`http://88.222.212.120:3000/api/bids/create`, bidObj);
+    return this.http.post<any>(`https://www.menaauctions.com/api/bids/create`, bidObj);
   }
   getBuyerBidsAtleaseService(id:any):Observable<any> {
-    return this.http.get(`http://88.222.212.120:3000/api/product/bidProducts/${id}`)
+    return this.http.get(`https://www.menaauctions.com/api/product/bidProducts/${id}`)
   }
 
     //winnerHistory
     getWinnerHistoryProductById(id:any){
-      return this.http.get(`http://88.222.212.120:3000/api/product/history/${id}`)
+      return this.http.get(`https://www.menaauctions.com/api/product/history/${id}`)
     }
   
 }

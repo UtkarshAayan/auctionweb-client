@@ -25,7 +25,6 @@ import { ChangePasswordComponent } from './view/secure-pages/profile/change-pass
 import { PurchaseShippingComponent } from './view/purchase/purchase-shipping/purchase-shipping.component';
 import { authGuardGuard } from './services/auth-guard.guard'
 import { AuctionComponent } from './view/seller/auction/auction.component';
-import { SetPriceComponent } from './view/seller/auction/set-price/set-price.component';
 import { SellersBiddersOfItemsComponent } from './view/seller/sellers-bidders-of-items/sellers-bidders-of-items.component';
 import { SellersUploadDocumentComponent } from './view/seller/sellers-upload-document/sellers-upload-document.component';
 import { AuctionDetailsComponent } from './view/seller/auction/auction-details/auction-details.component';
@@ -74,7 +73,6 @@ export const routes: Routes = [
   { path: 'upload-document', component: UploadDocumentComponent, canActivate: [sellerPagesGuard] },
   { path: 'seller-dashboard', component: SellerDashboardComponent, canActivate: [sellerPagesGuard] },
   { path: 'auction', component: AuctionComponent, canActivate: [sellerPagesGuard] },
-  { path: 'set-price', component: SetPriceComponent, canActivate: [sellerPagesGuard] },
   { path: 'bidders-of-items', component: BiddersComponent, canActivate: [sellerPagesGuard] },
   { path: 'sellers-bidders-of-items/:id', component: SellersBiddersOfItemsComponent, canActivate: [sellerPagesGuard] },
   { path: 'sellers-upload-document', component: SellersUploadDocumentComponent, canActivate: [sellerPagesGuard] },
