@@ -15,19 +15,19 @@ export class AdminSettingsService {
   }
 
   updateBuyersPremium(buyerPremium: any): Observable<any> {
-    return this.http.put(`http://88.222.212.120:3000/api/adminSettings/buyerPremium`, buyerPremium);
+    return this.http.put(`https://www.menaauctions.com/api/adminSettings/buyerPremium`, buyerPremium);
   }
 
   updateSalesTax(saleTax: any): Observable<any> {
-    return this.http.put(`http://88.222.212.120:3000/api/adminSettings/saleTax`, saleTax);
+    return this.http.put(`https://www.menaauctions.com/api/adminSettings/saleTax`, saleTax);
   }
 
   // getCategories(): Observable<any> {
-  //   return this.http.get(`http://88.222.212.120:3000/api/categories/all`);
+  //   return this.http.get(`https://www.menaauctions.com/api/categories/all`);
   // }
 
   getCategories(): Observable<any[]> {
-    return this.http.get<any[]>(`http://88.222.212.120:3000/api/categories/all`).pipe(
+    return this.http.get<any[]>(`https://www.menaauctions.com/api/categories/all`).pipe(
       catchError(this.handleError)
     );
   }
@@ -46,17 +46,17 @@ export class AdminSettingsService {
 
     getProductsByCategory(categoryName: string, page: number = 1, limit: number = 10, search: string = ''): Observable<any> {
       const queryParams = `?page=${page}&limit=${limit}&search=${search}`;
-      return this.http.get<any>(`http://88.222.212.120:3000/api/categories/all/${categoryName}${queryParams}`);
+      return this.http.get<any>(`https://www.menaauctions.com/api/categories/all/${categoryName}${queryParams}`);
     }
     
 
 getProductsBySubcategory(categoryName: string, subcategoryName: string, page: number = 1, limit: number = 10, search: string = ''): Observable<any> {
   const queryParams = `?page=${page}&limit=${limit}&search=${search}`;
-  return this.http.get<any>(`http://88.222.212.120:3000/api/categories/${categoryName}/sub/${subcategoryName}${queryParams}`);
+  return this.http.get<any>(`https://www.menaauctions.com/api/categories/${categoryName}/sub/${subcategoryName}${queryParams}`);
 }
 
   getCategoryByName(categoryName: string): Observable<any> {
-    return this.http.get<any>(`http://88.222.212.120:3000/api/categories/${categoryName}`);
+    return this.http.get<any>(`https://www.menaauctions.com/api/categories/${categoryName}`);
   }
 
   //help
@@ -80,32 +80,32 @@ getProductsBySubcategory(categoryName: string, subcategoryName: string, page: nu
 
 //aboutus
 getAbout(): Observable<any> {
-  return this.http.get<any>(`http://88.222.212.120:3000/api/about`);
+  return this.http.get<any>(`https://www.menaauctions.com/api/about`);
 }
 
   //termsandconditions
 
   getTerms(): Observable<any> {
-    return this.http.get<any>(`http://88.222.212.120:3000/api/terms`);
+    return this.http.get<any>(`https://www.menaauctions.com/api/terms`);
   }
   //privacypolicy
 
   getPrivacy(): Observable<any> {
-    return this.http.get<any>(`http://88.222.212.120:3000/api/privacy`);
+    return this.http.get<any>(`https://www.menaauctions.com/api/privacy`);
   }
 
   //getcountrys
   getCountries(): Observable<any[]> {
-    return this.http.get<any[]>(`http://88.222.212.120:3000/api/country/all`);
+    return this.http.get<any[]>(`https://www.menaauctions.com/api/country/all`);
   }
 
   getCountryById(id: any) {
-    return this.http.get(`http://88.222.212.120:3000/api/country/${id}`)
+    return this.http.get(`https://www.menaauctions.com/api/country/${id}`)
   }
 
     // Fetch Banner Images
     getBannerImages() {
-      return this.http.get<{ bannerImages: string[] }>(`http://88.222.212.120:3000/api/banner/view`);
+      return this.http.get<{ bannerImages: string[] }>(`https://www.menaauctions.com/api/banner/view`);
     }
 
 }

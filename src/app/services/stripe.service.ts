@@ -17,10 +17,10 @@ export class StripeService {
   }
 
   createPaymentIntent(amount: number): Observable<any> {
-    return this.http.post('http://88.222.212.120:3000/api/payments/create-payment-intent', { amount });
+    return this.http.post('https://www.menaauctions.com/api/payments/create-payment-intent', { amount });
   }
   getAllTransactions(): Observable<any> {
-    return this.http.get('http://88.222.212.120:3000/api/payments/transactions'); // Adjust URL if needed
+    return this.http.get('https://www.menaauctions.com/api/payments/transactions'); // Adjust URL if needed
   }
 
   

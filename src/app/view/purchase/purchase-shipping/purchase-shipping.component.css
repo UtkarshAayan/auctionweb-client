@@ -9,11 +9,14 @@
 }
 
 .card {
-    border-radius: 5px;
-    &-body {
-      text-align: center;
-    }
-  }
+  border-radius: 5px;
+}
+
+.card-body {
+  text-align: center;
+}
+
+
   .card-img-top {
     border-top-left-radius: 0; 
      border-top-right-radius: 0;
