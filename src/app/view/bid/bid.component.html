@@ -110,8 +110,15 @@ background: #f8f9fa;" *ngIf="!isLoading">
                 </button>
               </div>
               <div class="btn-group">
-                <button *ngIf="dataArray.status === 'expired'" (click)="getproductByIdForCheckout(dataArray._id)" type="button" class="btn btn-warning btn-sm m-2">Checkout</button>
+                <button 
+                  *ngIf="dataArray.status === 'expired' && dataArray.winningBuyer === userId" 
+                  (click)="getproductByIdForCheckout(dataArray._id)" 
+                  type="button" 
+                  class="btn btn-warning btn-sm m-2">
+                  Checkout
+                </button>
               </div>
+              
             </div>
             
 
