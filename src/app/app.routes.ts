@@ -9,6 +9,7 @@ import { HelpPageComponent } from './view/static-pages/help-page/help-page.compo
 import { HowToBuyComponent } from './view/static-pages/how-to-buy/how-to-buy.component';
 import { HowToSellComponent } from './view/static-pages/how-to-sell/how-to-sell.component';
 import { TermsConditionComponent } from './view/static-pages/terms-condition/terms-condition.component';
+import { DeletePolicyComponent } from './view/static-pages/delete-policy/delete-policy.component';
 import { AboutusComponent } from './view/static-pages/aboutus/aboutus.component';
 import { PrivacyPolicyComponent } from './view/static-pages/privacy-policy/privacy-policy.component';
 import { FoodBevComponent } from './view/categories/food-bev/food-bev.component';
@@ -51,6 +52,7 @@ export const routes: Routes = [
   { path: 'how-to-sell', component: HowToSellComponent },
   { path: 'how-to-buy', component: HowToBuyComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'delete-policy', component: DeletePolicyComponent },
   { path: 'aboutus', component: AboutusComponent },
   { path: 'terms-condition', component: TermsConditionComponent },
   { path: 'alerts', component: AlertsComponent, canActivate: [compositeGuard] },
